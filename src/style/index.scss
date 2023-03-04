@@ -1,0 +1,156 @@
+@import "variables";
+$animation-duration: 1s;
+$animation-delay: 0.03s;
+$animation-text-duration: 1s;
+$animation-text-delay: 0.2s;
+$animation-text-waiting: 0.74s;
+$animation-logo-waiting: 0.7s;
+$animation-logo-duration: 2s;
+
+#page.index {
+  align-items: center;
+  #full {
+    background-color: $grade-5;
+    width: 100vw; height: calc(100dvh - 64px);
+    overflow: hidden;
+  
+    #surfing {
+      position: absolute;
+      width: 100%; height: 100%;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      transform-origin: center bottom;
+  
+      &.show {
+        >svg {
+          transform: translateX(-50%);
+          transition: transform $animation-text-duration, opacity $animation-text-duration;
+          opacity: 1;
+        }
+        >p {
+          transform: translateX(-50%);
+          transition: transform $animation-duration, opacity $animation-duration;
+          opacity: 1;
+        }
+        #description {
+          opacity: .7;
+        }
+      }
+  
+      >svg {
+        position: absolute;
+        left: 50%; bottom: 0;
+        transform: translateX(-50%) translateY(300px);
+        opacity: 0;
+      }
+  
+      >p {
+        position: absolute;
+        left: 50%; bottom: 0;
+        transform: translateX(-50%) translateY(50px);
+        white-space: nowrap;
+        opacity: 0;
+        font-size: 44px;
+      }
+  
+      #surfing1 {
+        bottom: -300px;
+        transition-delay: $animation-delay * 0;
+      }
+  
+      #text1 {
+        font-weight: 700;
+        color: $grade-6;
+        left: calc(50% + 67px);
+        bottom: 64px;
+        transition-delay: $animation-text-waiting + $animation-text-delay * 2;
+      }
+  
+      #surfing2 {
+        bottom: -200px;
+        transition-delay: $animation-delay * 1;
+      }
+  
+      #text2 {
+        font-weight: 600;
+        color: $grade-5;
+        bottom: 140px;
+        transition-delay: $animation-text-waiting + $animation-text-delay * 1;
+      }
+  
+      #surfing3 {
+        bottom: -110px;
+        transition-delay: $animation-delay * 2;
+      }
+  
+      #text3 {
+        font-weight: 500;
+        color: $grade-1;
+        left: calc(50% + 80px);
+        bottom: 245px;
+        transition-delay: $animation-text-waiting + $animation-text-delay * 0;
+      }
+  
+      #surfing4 {
+        bottom: 0;
+        transition-delay: $animation-delay * 3;
+      }
+  
+      #logo {
+        left: calc(50% + 65px);
+        bottom: 325px;
+        transition: transform $animation-logo-duration, opacity $animation-logo-duration;
+        transition-delay: $animation-text-waiting + $animation-logo-waiting;
+      }
+  
+      #description {
+        left: calc(50% + 70px);
+        bottom: 575px;
+        font-size: 16px;
+        font-weight: 500;
+        color: $white;
+        letter-spacing: 6.5px;
+        transition: transform $animation-logo-duration, opacity $animation-logo-duration;
+        transition-delay: $animation-text-waiting + $animation-logo-waiting;
+      }
+    }
+  }
+
+  #icons {
+    margin-top: 24px;
+  }
+
+  #subtitle {
+    font-size: 16px;
+    font-weight: 500;
+    color: $grade-3;
+    margin-top: 160px;
+  }
+
+  #title {
+    font-size: 24px;
+    font-weight: 600;
+    color: $grade-5;
+    margin-top: 12px;
+  }
+
+  #wave {
+    margin: 48px 0;
+  }
+
+  #description {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 180%;
+    color: $grade-7;
+    text-align: center;
+
+    #bold {
+      font-weight: 600;
+    }
+  }
+
+  #bottom {
+    transform-origin: center top;
+  }
+}

@@ -1,0 +1,76 @@
+@import "variables";
+
+#navbar {
+  overflow: hidden;
+  height: 64px;
+  background-color: $grade-5;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  #inner {
+    width: calc(100% - 64px);
+    max-width: calc($max-width - 64px);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #logo {
+    display: flex;
+  }
+
+  #search {
+    input {
+      background-color: rgba($white, 0.1);
+      color: $white;
+      border: none;
+      outline: none;
+      width: 300px;
+      height: 32px;
+      padding: 0 20px;
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 500;
+
+      &::placeholder {
+        color: $white;
+        opacity: .6;
+      }
+    }
+  }
+
+  #items {
+    display: flex;
+    flex-direction: row;
+    color: $white;
+    font-size: 14px;
+    font-weight: 500;
+    gap: 36px;
+
+    #item {
+      opacity: .5;
+      cursor: pointer;
+    }
+  }
+
+  &.glass {
+    background: unset;
+
+    #search {
+      input {
+        background-color: rgba($grade-6, 0.1);
+        color: $grade-6;
+
+        &::placeholder {
+          color: $grade-6;
+        }
+      }
+    }
+
+    #items {
+      color: $grade-7;
+    }
+  }
+}

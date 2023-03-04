@@ -1,0 +1,105 @@
+@import "variables";
+
+#page.detail {
+  #header {
+    display: flex;
+    align-items: center;
+    margin-top: 80px;  
+    margin-bottom: 64px;
+
+    #back {
+      cursor: pointer;
+    }
+
+    #logo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: $grade-2;
+      margin-left: 24px;
+      margin-right: 28px;
+    }
+
+    #info {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      >* {
+        display: flex;
+      }
+
+      #top {
+        display: flex;
+        align-items: center;
+
+        #name {
+          font-size: 40px;
+          font-weight: 700;
+          color: $grade-8;
+        }
+
+        #links {
+          display: flex;
+          gap: 14px;
+          margin-left: 28px;
+        }
+      }
+
+      #bottom {
+        p {
+          font-size: 16px;
+          font-weight: 500;
+          color: $grade-4;
+        }
+      }
+    }
+
+    #fill {
+      flex: 1;
+    }
+
+    #buttons {
+      #button {
+        background: $grade-5;
+        padding: 12px 24px;
+        border-radius: 36px;
+        font-size: 14px;
+        font-weight: 500;
+        color: $white;
+        cursor: pointer;
+      }
+    }
+  }
+
+  #content {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+
+    #row {
+      display: flex;
+      gap: 24px;
+    }
+
+    #col {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    #card {
+      background-color: rgba($grade-2, 0.12);
+      padding: 28px 32px;
+      border: 1px solid $grade-2;
+      border-radius: 16px;
+
+      #title {
+        font-size: 14px;
+        font-weight: 500;
+        color: $grade-3;
+      }
+    }
+  }
+}

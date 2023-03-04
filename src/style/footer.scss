@@ -1,0 +1,53 @@
+@import "variables";
+
+#footer {
+  background-color: $grade-5;
+  color: $white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  #inner {
+    width: 100%;
+    max-width: calc($max-width - 64px);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 60px 32px;
+  }
+
+  #about {
+    display: flex;
+    flex-direction: column;
+
+    p {
+      font-size: 14px;
+      font-weight: 500;
+      margin-top: 14px;
+    }
+  }
+
+  #item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 14px;
+    
+    #key {
+      font-weight: 700;
+      opacity: .6;
+    }
+
+    #value {
+      font-weight: 600;
+      opacity: .4;
+      margin-top: 12px;
+    }
+  }
+
+  &.glass {
+    background: $grade-2;
+    color: $grade-6;
+  }
+}
