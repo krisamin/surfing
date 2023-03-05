@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import $ from 'jquery';
 
 import '../style/index.scss';
@@ -12,6 +13,8 @@ import { ReactComponent as SurfingBottom } from '../assets/surfing.bottom.svg';
 
 import { ReactComponent as Icons } from '../assets/icons.svg';
 import { ReactComponent as Wave } from '../assets/wave.svg';
+
+import qna from '../data/qna.json'
 
 const Index = () => {
   const surfing = React.useRef(null);
@@ -78,15 +81,33 @@ const Index = () => {
           <p id="description">제 1 회 한국디지털미디어고등학교 동아리 전시회</p>
         </div>
       </div>
+
       <Icons id="icons" />
       <p id="subtitle">전시회 소개</p>
       <p id="title">파도를 헤엄치다, Surfing.</p>
       <Wave id="wave" />
-      <p id="description">surfing은 <span id="bold">제 1회 한국디지털미디어고등학교 동아리 전시회</span>입니다.<br />surfing은 동아리 간의 활동 결과를 공유하여 <span id="bold">보다 건전한 동아리 문화를<br />조성하고 이를 기념하기 위해</span> 만들어졌습니다.</p>
+      <p id="description">surfing은 <span id="bold">제 1회 한국디지털미디어고등학교 동아리 전시회</span>입니다. surfing은 동아리 간의 활동 결과를 공유하여 <span id="bold">보다 건전한 동아리 문화를 조성하고 이를 기념하기 위해</span> 만들어졌습니다.</p>
+
+      <p id="subtitle">자주 묻는 질문</p>
+      <div id="qna">
+        {qna.map((data, index) => (
+          <div id="item" key={ index }>
+            <p id="question">{ data.question }</p>
+            <p id="answer">{ data.answer }</p>
+          </div>
+        ))}
+      </div>
+
       <SurfingBottom id="bottom" style={{
         transform: `scale(${scale})`,
         marginBottom: `${marginBottom - 1}px`,
       }} ref={ surfingBottom } />
+
+      <div id="quick">
+        <p id="title">동아리 전시회 & 원서 접수</p>
+        <p id="date">3월 10일 (금) ~ 3월 20일 (월) </p>
+        <Link id="button" to={ "/circle" }>보러 가기</Link>
+      </div>
     </div>
   )
 };

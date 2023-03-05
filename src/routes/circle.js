@@ -6,9 +6,20 @@ import '../style/circle.scss';
 
 import circles from '../data/circles.json';
 
+import { useDispatch, useSelector } from "react-redux";
+import circleSlice from "../redux/slices/circle";
+
 const Circle = () => {
-  const [circleWidth, setCircleWidth] = React.useState(null);
-  const [categories, setCategories] = React.useState([]);
+  const dispatch = useDispatch();
+  const [circleWidth, setCircleWidth] = React.useState(0);
+  const { search, scroll, category } = useSelector((state) => state.circle);
+
+  let categories = [];
+  circles.forEach((circle) => {
+    if (!categories.includes(circle.category)) {
+      categories.push(circle.category);
+    }
+  });
 
   const resize = () => {
     if($('#circles').width() >= 1100) {
@@ -20,40 +31,33 @@ const Circle = () => {
     }
   };
 
+  const selectCategory = (e) => {
+    dispatch(circleSlice.actions.setSearch(null));
+    dispatch(circleSlice.actions.setCategory($(e.target).index()));
+  }
+
   React.useEffect(() => {
     resize();
     $(window).on('resize', resize);
-    $('#categories #category:nth-child(1)').addClass('active');
 
-    const categories = [];
-    circles.forEach((circle) => {
-      if (!categories.includes(circle.category)) {
-        categories.push(circle.category);
-      }
-    });
-    setCategories(categories);
-
-    return () => $(window).off('resize', resize);
+    return () => {
+      $(window).off('resize');
+      $("#root").off('scroll');
+    };
   }, []);
 
-  const selectCategory = (e) => {
-    console.log(e);
-    $('#categories #category').removeClass('active');
-    $(e.target).addClass('active');
+  React.useEffect(() => {
+    if(!circleWidth) return;
+    $("#root").off('scroll');
+    $("#root").scrollTop(scroll);
+    $("#root").on('scroll', () => {
+      dispatch(circleSlice.actions.setScroll($("#root").scrollTop()));
+    });
+  }, [dispatch, scroll, circleWidth]);
 
-    if($(e.target).text() == "전체") {
-      $('#circles #circle').css('display', 'flex');
-    } else {
-      $('#circles #circle').each((index, item) => {
-        if ($(item).find('#content #category').text() === $(e.target).text()) {
-          $(item).css('display', 'flex');
-        } else {
-          $(item).css('display', 'none');
-        }
-      });
-    }
-    resize();
-  }
+  React.useEffect(() => {
+    if (search) dispatch(circleSlice.actions.setCategory(0));
+  }, [dispatch, search]);
 
   return (
     <div id="page" className="circle">
@@ -79,24 +83,28 @@ const Circle = () => {
         </div>
       </div>
       <div id="categories">
-        {["전체", ...categories].map((item, index) => {
-          return (
-            <div id="category" key={ index } onClick={ selectCategory }>{ item }</div>
-          )
-        })}
+        {["전체", ...categories].map((item, index) => (
+          <div id="category" key={ index } onClick={ selectCategory } className={ category === index ? "active" : "" }>{ item }</div>
+        ))}
       </div>
       <div id="circles">
-        {circles.map((item, index) => {
-          return (
-            <Link to={ `/circle/${index + 1}` } id="circle" key={ index + 1 } style={{ minWidth: circleWidth, maxWidth: circleWidth }}>
-              <div id="content">
-                <div id="name">{ item.name }</div>
-                <div id="category">{ item.category }</div>
-              </div>
-              <div id="logo"></div>
-            </Link>
-          )
-        })}
+        {circleWidth ? circles.map((item, index) => (
+          <Link
+            to={ `/circle/${index + 1}` }
+            id="circle" key={ index + 1 }
+            style={{
+              minWidth: circleWidth,
+              maxWidth: circleWidth,
+              display: search ? (item.name.includes(search) ? "flex" : "none") : (category ? (item.category === categories[category - 1] ? "flex" : "none") : "flex")
+            }}
+          >
+            <div id="content">
+              <div id="name">{ item.name }</div>
+              <div id="category">{ item.category }</div>
+            </div>
+            <div id="logo"></div>
+          </Link>
+        )) : null}
       </div>
     </div>
   );

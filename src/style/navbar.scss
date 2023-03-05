@@ -39,6 +39,10 @@
         opacity: .6;
       }
     }
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   #items {

@@ -1,6 +1,6 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import $ from 'jquery';
+import { useNavigate } from "react-router-dom";
+//import $ from 'jquery';
 
 import { useParams } from "react-router-dom";
 
@@ -20,13 +20,17 @@ const Circle = () => {
     } else {
       setInfo(circles[id - 1]);
     }
-  });
-
+  }, [id, navigate]);
 
   return info ? (
     <div id="page" className="detail">
       <div id="header">
-        <Link to={ "/circle" } id="back"><BackSvg /></Link>
+        <div
+          id="back"
+          onClick={() => {
+            navigate('/circle', { replace: true });
+          }}
+        ><BackSvg /></div>
         <div id="logo"></div>
         <div id="info">
           <div id="top">

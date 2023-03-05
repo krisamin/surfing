@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import '../style/navbar.scss';
 
@@ -8,12 +8,15 @@ import { ReactComponent as LogoLight } from '../assets/surfing.light.svg';
 
 import { useSelector, useDispatch } from 'react-redux';
 import userSlice, { logout } from "../redux/slices/user";
+import circleSlice from "../redux/slices/circle";
 
 const Navbar = () => {
+  const location = useLocation().pathname.split('/')[1];
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { authenticated } = useSelector(state => state.user.auth);
   const { info } = useSelector(state => state.user);
-  const location = useLocation().pathname.split('/')[1];
+  const { search } = useSelector(state => state.circle);
 
   return (
     <div id="navbar" className={ location === "" ? "" : "glass" }>
@@ -22,7 +25,16 @@ const Navbar = () => {
           { location === "" ? <LogoLight /> : <LogoDark />}
         </Link>
         <div id='search'>
-          <input placeholder='동아리 검색하기' />
+          <input 
+            placeholder='동아리 검색하기'
+            onFocus={() => {
+              navigate('/circle');
+            }}
+            value={ search || "" }
+            onChange={(e) => {
+              dispatch(circleSlice.actions.setSearch(e.target.value));
+            }}
+          />
         </div>
         <div id='items'>
           <Link id='item' to={ "/circle" }>동아리 목록</Link>
