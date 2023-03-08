@@ -6,7 +6,8 @@ import userSlice, { logout } from "../redux/slices/user";
 const AxiosContext = React.createContext();
 const { Provider } = AxiosContext;
 
-const apiUrl = 'https://dev-api-surfing.pentag.kr/';
+//const apiUrl = 'https://dev-api-surfing.pentag.kr/';
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const AxiosProvider = ({ children }) => {
   const dispatch = useDispatch();
