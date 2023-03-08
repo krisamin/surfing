@@ -12,6 +12,7 @@ import Index from './routes/index';
 import Circle from './routes/circle';
 import Login from './routes/login';
 import Detail from './routes/detail';
+import Admin from './routes/admin';
 
 import store from './redux/store';
 import { Provider } from 'react-redux';
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: <Login />,
+      },
+      {
+        path: '/admin',
+        element: <Admin />,
       }
     ],
   },
@@ -44,11 +49,11 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  //<React.StrictMode>
     <Provider store={store}>
       <AxiosProvider>
         <RouterProvider router={ router } />
       </AxiosProvider>
     </Provider>
-  </React.StrictMode>
+  //</React.StrictMode>
 );

@@ -3,7 +3,6 @@ import axios from 'axios';
 
 import { useDispatch } from "react-redux";
 import userSlice, { logout } from "../redux/slices/user";
-import { cookies } from "../storage";
 const AxiosContext = React.createContext();
 const { Provider } = AxiosContext;
 
@@ -23,7 +22,7 @@ const AxiosProvider = ({ children }) => {
 
   authAxios.interceptors.request.use(
     (config) => {
-      config.headers.Authorization = `Bearer ${cookies.get('accessToken')}`;
+      config.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`;
       return config;
     },
     (error) => {
@@ -41,7 +40,7 @@ const AxiosProvider = ({ children }) => {
         originalRequest._retry = true;
         const newAccessToken = await refreshAccessToken();
 
-        cookies.set('accessToken', newAccessToken);
+        localStorage.setItem('accessToken', newAccessToken);
         dispatch(userSlice.actions.setAuth({
           accessToken: newAccessToken
         }));
@@ -57,7 +56,7 @@ const AxiosProvider = ({ children }) => {
     axios({
       method: 'GET',
       params: {
-        refresh_token: cookies.get('refreshToken'),
+        refresh_token: localStorage.getItem('refreshToken'),
       },
       url: apiUrl + 'auth/refresh',
     })
@@ -67,13 +66,6 @@ const AxiosProvider = ({ children }) => {
         logout();
         return Promise.reject();
       });
-    /*cookies.set('accessToken', result.data.access_token);
-    cookies.set('refreshToken', result.data.refresh_token);
-    dispatch(userSlice.actions.setAuth({
-      accessToken: result.data.access_token,
-      refreshToken: result.data.refresh_token,
-      authenticated: true,
-    }));*/
 
   return (
     <Provider value={{ publicAxios, authAxios }}>
@@ -82,4 +74,4 @@ const AxiosProvider = ({ children }) => {
   )
 }
 
-export { AxiosContext, AxiosProvider };
+export { AxiosContext, AxiosProvider, apiUrl };

@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { cookies } from "../../storage";
+import { apiUrl } from "../../provider/axios";
+import axios from 'axios';
 
 const initialState = {
+  loaded: false,
   auth: {
     accessToken: null,
     refreshToken: null,
@@ -9,13 +11,24 @@ const initialState = {
   },
   info: {
     real_name: null,
+    role: null,
   },
+  submit: false,
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    setInitial(state, action) {
+      state.auth = initialState.auth;
+      state.info = initialState.info;
+      state.submit = initialState.submit;
+      localStorage.removeItem('user_info');
+    },
+    setLoaded(state, action) {
+      state.loaded = action.payload;
+    },
     setAuth(state, action) {
       state.auth = {
         ...state.auth,
@@ -27,24 +40,35 @@ const userSlice = createSlice({
         ...state.info,
         ...action.payload,
       }
-      localStorage.setItem('user', JSON.stringify(state.info));
+      localStorage.setItem('user_info', JSON.stringify(state.info));
     },
     loadInfo(state, action) {
-      state.info = JSON.parse(localStorage.getItem('user'));
+      state.info = JSON.parse(localStorage.getItem('user_info'));
+    },
+    setSubmit(state, action) {
+      state.submit = action.payload;
     }
   },
 });
 
 export const logout = () => async dispatch => {
   console.log('logout');
+  const result = await axios({
+    method: 'GET',
+    url: apiUrl + 'auth/logout',
+    params: {
+      refresh_token: localStorage.getItem('refreshToken'),
+    },
+  });
+  console.log(result.data);
   dispatch(userSlice.actions.setAuth({
     accessToken: null,
     refreshToken: null,
     authenticated: false,
   }));
-  dispatch(userSlice.actions.setInfo({}));
-  cookies.remove('accessToken');
-  cookies.remove('refreshToken');
+  dispatch(userSlice.actions.setInitial());
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
 }
 
 export default userSlice;

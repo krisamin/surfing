@@ -7,7 +7,7 @@ import { ReactComponent as LogoDark } from '../assets/surfing.dark.svg';
 import { ReactComponent as LogoLight } from '../assets/surfing.light.svg';
 
 import { useSelector, useDispatch } from 'react-redux';
-import userSlice, { logout } from "../redux/slices/user";
+import { logout } from "../redux/slices/user";
 import circleSlice from "../redux/slices/circle";
 
 const Navbar = () => {
@@ -19,26 +19,53 @@ const Navbar = () => {
   const { search } = useSelector(state => state.circle);
 
   return (
-    <div id="navbar" className={ location === "" ? "" : "glass" }>
+    <div id="navbar" className={location === "" ? "" : "glass"}>
       <div id="inner">
-        <Link to={ "/" } id="logo">
-          { location === "" ? <LogoLight /> : <LogoDark />}
+        <Link to={"/"} id="logo">
+          {location === "" ? <LogoLight /> : <LogoDark />}
         </Link>
-        <div id='search'>
-          <input 
-            placeholder='동아리 검색하기'
+        <div id="search">
+          <input
+            placeholder="동아리 검색하기"
             onFocus={() => {
-              navigate('/circle');
+              navigate("/circle");
             }}
-            value={ search || "" }
+            value={search || ""}
             onChange={(e) => {
               dispatch(circleSlice.actions.setSearch(e.target.value));
             }}
           />
         </div>
-        <div id='items'>
-          <Link id='item' to={ "/circle" }>동아리 목록</Link>
-          { authenticated ? <div id="item" onClick={() => dispatch(logout())}>{info.real_name} 님</div> : <Link id='item' to={ "/login" }>로그인</Link> }
+        <div id="items">
+          <Link
+            id="item"
+            to={"/circle"}
+            className={location === "circle" ? "selected" : ""}
+          >
+            동아리 목록
+          </Link>
+          {["CIRCLE_ADMIN", "CIRCLE_VICE_ADMIN"].indexOf(info?.role) !== -1 && (
+            <Link
+              id="item"
+              to={"/admin"}
+              className={location === "admin" ? "selected" : ""}
+            >
+              신청 관리
+            </Link>
+          )}
+          {authenticated ? (
+            <div id="item" onClick={() => dispatch(logout())}>
+              {info?.real_name} 님
+            </div>
+          ) : (
+            <Link
+              id="item"
+              to={"/login"}
+              className={location === "login" ? "selected" : ""}
+            >
+              로그인
+            </Link>
+          )}
         </div>
       </div>
     </div>

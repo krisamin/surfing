@@ -8,7 +8,7 @@ import Footer from "../components/footer";
 import { useSelector, useDispatch } from "react-redux";
 import { AxiosContext } from "../provider/axios";
 import userSlice from "../redux/slices/user";
-import { cookies } from "../storage";
+import circleSlice from "../redux/slices/circle";
 
 const Root = () => {
   const location = useLocation();
@@ -16,10 +16,10 @@ const Root = () => {
   const { authAxios } = React.useContext(AxiosContext);
   const { authenticated } = useSelector(state => state.user.auth);
 
-  const loadJWT = () => {
+  const loadJWT = React.useCallback(async () => {
     const [accessToken, refreshToken] = [
-      cookies.get("accessToken"),
-      cookies.get("refreshToken"),
+      localStorage.getItem('accessToken'),
+      localStorage.getItem('refreshToken'),
     ];
     if (accessToken && refreshToken) {
       dispatch(userSlice.actions.setAuth({
@@ -27,30 +27,48 @@ const Root = () => {
         refreshToken,
         authenticated: true,
       }));
-      dispatch(userSlice.actions.loadInfo());
     } else {
       console.log("No JWT");
     }
-  };
-
-  const loadInfo = async () => {
-    const result = await authAxios.get('/auth/me');
-    dispatch(userSlice.actions.setInfo(result.data));
-  }
+  }, [dispatch]);
 
   React.useEffect(() => {
     loadJWT();
-  }, []);
+  }, [loadJWT]);
 
-  React.useEffect(() => {
-    $('#root').scrollTop(0);
-  }, [location]);
+  const loadInfo = React.useCallback(async () => {
+    dispatch(userSlice.actions.loadInfo());
+    const result = await authAxios.get('/auth/me');
+    dispatch(userSlice.actions.setInfo(result.data));
+    dispatch(userSlice.actions.setLoaded(true));
+    console.log(result.data);
+  }, [authAxios, dispatch]);
+
+  const getUserSubmit = React.useCallback(async () => {
+    const result = await authAxios.get('/submit');
+    console.log(result.data);
+    dispatch(userSlice.actions.setSubmit(result.data.submit_list));
+  }, [authAxios, dispatch]);
+
+  const getPeriod = React.useCallback(async () => {
+    const result = await authAxios.get('/period/current');
+    console.log(result.data);
+    dispatch(circleSlice.actions.setPeriod(result.data.message));
+  }, [authAxios, dispatch]);
 
   React.useEffect(() => {
     if (authenticated) {
       loadInfo();
     }
-  }, [authenticated]);
+  }, [authenticated, loadInfo, getUserSubmit, getPeriod]);
+
+  React.useEffect(() => {
+    $('#root').scrollTop(0);
+    getPeriod();
+    if (authenticated) {
+      getUserSubmit();
+    }
+  }, [location, authenticated, getUserSubmit, getPeriod]);
 
   return (
     <div>

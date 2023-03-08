@@ -17,53 +17,38 @@ import { ReactComponent as Wave } from '../assets/wave.svg';
 import qna from '../data/qna.json'
 
 const Index = () => {
-  const surfing = React.useRef(null);
   const surfingBottom = React.useRef(null);
-  const [surfingOriginalSize, setSurfingOriginalSize] = React.useState({
-    width: null,
-    height: null,
-  });
-  const [surfingBottomOriginalSize, setSurfingBottomOriginalSize] = React.useState({
-    width: null,
-    height: null,
-  });
   const [scale, setScale] = React.useState(null);
   const [marginBottom, setMarginBottom] = React.useState(null);
 
-  React.useEffect(() => {
-    const resize = () => {
-      if (!surfingOriginalSize.width || !surfingBottomOriginalSize.width) return;
-      let newScale = window.innerWidth / surfingOriginalSize.width;
-      newScale < 1 && (newScale = 1);
-      setScale(newScale);
-      setMarginBottom(surfingBottom.current.getBoundingClientRect().height - surfingBottomOriginalSize.height);
-    }; resize();
-    $(window).on('resize', resize);
-    return () => $(window).off('resize', resize);
-  });
-
-  React.useEffect(() => {
-    setSurfingOriginalSize({
-      width: surfing.current.getBoundingClientRect().width,
-      height: surfing.current.getBoundingClientRect().height,
-    });
-  }, [surfing.current]);
-
-  React.useEffect(() => {
-    setSurfingBottomOriginalSize({
-      width: surfingBottom.current.getBoundingClientRect().width,
-      height: surfingBottom.current.getBoundingClientRect().height,
-    });
-  }, [surfingBottom.current]);
-
-  React.useEffect(() => {
-    $('#surfing').addClass('show');
-
-    return () => {
-      $('#surfing').removeClass('show');
+  const resize = React.useCallback(() => {
+    const surfingOriginalSize = {
+      width: 1512,
     };
+    const surfingBottomOriginalSize = {
+      height: 800,
+    };
+
+    let newScale = window.innerWidth / surfingOriginalSize.width;
+    newScale < 1 && (newScale = 1);
+    setScale(newScale);
+    setMarginBottom(surfingBottomOriginalSize.height * newScale - surfingBottomOriginalSize.height);
   }, []);
 
+  React.useEffect(() => {
+    resize();
+    $(window).on('resize', resize);
+    return () => {
+      $(window).off('resize', resize)
+    };
+  }, [resize]);
+
+  React.useEffect(() => {
+    if (!scale) return;
+    $('#surfing').addClass('show');
+  }, [scale]);
+
+  console.log("update");
   return (
     <div id="page" className='index'>
       <div id="full">
@@ -77,7 +62,7 @@ const Index = () => {
           <p id="text2">파도 속으로</p>
           <Surfing2 id="surfing2" />
           <p id="text1">초대합니다</p>
-          <Surfing1 id="surfing1" ref={ surfing } />
+          <Surfing1 id="surfing1" />
           <p id="description">제 1 회 한국디지털미디어고등학교 동아리 전시회</p>
         </div>
       </div>

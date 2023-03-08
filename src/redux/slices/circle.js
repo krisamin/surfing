@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   search: null,
   scroll: 0,
-  category: 0
+  category: 0,
+  period: false,
 };
 
 const circleSlice = createSlice({
@@ -18,6 +19,9 @@ const circleSlice = createSlice({
     },
     setCategory(state, action) {
       state.category = action.payload;
+    },
+    setPeriod(state, action) {
+      state.period = action.payload;
     }
   },
 });

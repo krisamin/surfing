@@ -10,7 +10,7 @@ const Footer = () => {
   const location = useLocation().pathname.split('/')[1];
 
   return (
-    <nav id="footer" className={ location === "" ? "" : "glass" }>
+    <div id="footer" className={ location === "" ? "" : "glass" }>
       <div id="inner">
         <Link to={ "/" } id="about">
           { location === "" ? <LogoLight /> : <LogoDark />}
@@ -21,7 +21,7 @@ const Footer = () => {
           <p id="value">DIN, 디미고 인트라넷 개발팀</p>
         </div>
       </div>
-    </nav>
+    </div>
   );
 }
 

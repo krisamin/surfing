@@ -1,0 +1,18 @@
+{
+  "submit": {
+    "PREPARING": "준비중",
+    "SUBMITTING": "지원하기",
+    "FIRSTEVAL": "마감",
+    "SECONDEVAL": "마감",
+    "FINAL": "마감",
+    "EOL": "종료"
+  },
+  "result": {
+    "SUBMITTED": "승인 대기 중",
+    "REJECTED": "서류 불합격",
+    "FIRST": "서류 합격",
+    "SECOND": "면접 합격",
+    "SECONDREJECTED": "면접 불합격",
+    "FINALCHOICE": "최종 선택"
+  }
+}

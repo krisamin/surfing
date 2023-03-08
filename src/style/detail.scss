@@ -1,9 +1,10 @@
 @import "variables";
 
 #page.detail {
-  #header {
-    display: flex;
+  >#header {
+    flex-direction: row;
     align-items: center;
+    flex-wrap: wrap;
     margin-top: 80px;  
     margin-bottom: 64px;
 
@@ -15,38 +16,54 @@
       width: 100px;
       height: 100px;
       border-radius: 50%;
-      background-color: $grade-2;
       margin-left: 24px;
       margin-right: 28px;
+      background-color: $white;
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      background-size: 100%;
+
+      @media (max-width: 768px) {
+        width: 80px;
+        height: 80px;
+      }
     }
 
     #info {
-      display: flex;
-      flex-direction: column;
       gap: 12px;
 
       >* {
-        display: flex;
+        flex-direction: row;
       }
 
       #top {
-        display: flex;
+        flex-direction: row;
         align-items: center;
 
         #name {
           font-size: 40px;
           font-weight: 700;
           color: $grade-8;
+
+          @media (max-width: 768px) {
+            font-size: 30px;
+          }
         }
 
         #links {
-          display: flex;
+          flex-direction: row;
           gap: 14px;
           margin-left: 28px;
+
+          #link {
+            display: flex;
+            align-items: center;
+          }
         }
       }
 
       #bottom {
+        gap: 6px;
         p {
           font-size: 16px;
           font-weight: 500;
@@ -68,24 +85,35 @@
         font-weight: 500;
         color: $white;
         cursor: pointer;
+
+        &.disabled {
+          background: rgba($grade-5, 0.5);
+          pointer-events: none;
+        }
+      }
+
+      @media (max-width: 768px) {
+        display: none;
       }
     }
   }
 
   #content {
-    display: flex;
-    flex-direction: column;
     align-items: stretch;
     gap: 24px;
 
     #row {
-      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
       gap: 24px;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: stretch;
+      }
     }
 
     #col {
-      display: flex;
-      flex-direction: column;
       gap: 24px;
     }
 
@@ -99,6 +127,184 @@
         font-size: 14px;
         font-weight: 500;
         color: $grade-3;
+      }
+      
+      #info {
+        gap: 16px;
+        margin-top: 20px;
+
+        #slogan {
+          font-size: 32px;
+          font-weight: 600;
+          color: $grade-6;
+        }
+  
+        #description {
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 180%;
+          color: $grade-8;
+        }
+      }
+
+      #list {
+        gap: 12px;
+        margin-top: 20px;
+
+        #item {
+          flex-direction: row;
+          align-items: center;
+          gap: 12px;
+
+          #level {
+            font-size: 16px;
+            font-weight: 600;
+            color: $grade-6;
+            white-space: nowrap;
+          }
+
+          #name {
+            font-size: 16px;
+            font-weight: 500;
+            color: $grade-5;
+          }
+        }
+      }
+    }
+  }
+
+  #apply {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba($black, 0.5);
+
+    align-items: center;
+    overflow-y: auto;
+
+    opacity: 0;
+    pointer-events: none;
+
+    &.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #window {
+      width: calc(100% - 72px - 40px);
+      max-width: 840px;
+      background-color: $grade-1;
+      border-radius: 24px;
+      padding: 32px 36px;
+      margin: 64px 0;
+
+      #header {
+        flex-direction: row;
+        align-items: center;
+
+        #close {
+          flex-direction: row;
+          cursor: pointer;
+        }
+
+        #logo {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          margin-left: 24px;
+          margin-right: 16px;
+          background-color: $white;
+          background-position: 50% 50%;
+          background-repeat: no-repeat;
+          background-size: 100%;
+        }
+
+        #title {
+          font-size: 20px;
+          font-weight: 600;
+          color: $grade-8;
+          margin-right: 8px;
+        }
+
+        #subtitle {
+          font-size: 16px;
+          font-weight: 500;
+          color: $grade-4;
+        }
+
+        #fill {
+          flex: 1;
+        }
+
+        #warning {
+          font-size: 14px;
+          font-weight: 500;
+          color: $grade-4;
+
+          @media (max-width: 768px) {
+            display: none;
+          }
+        }
+      }
+
+      #content {
+        gap: 72px;
+        margin: 48px 0;
+
+        #input {
+          #placeholder {
+            font-size: 24px;
+            font-weight: 600;
+            color: $grade-8;
+            margin-bottom: 20px;
+          }
+
+          textarea {
+            height: 100px;
+            background-color: rgba($grade-2, 0.12);
+            border: 1px solid $grade-2;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 180%;
+            color: $grade-4;
+            outline: none;
+            padding: 24px;
+            resize: none;
+          }
+
+          #count {
+            font-size: 14px;
+            font-weight: 500;
+            color: $grade-3;
+            margin-top: 12px;
+            align-self: flex-end;
+          }
+        }
+      }
+
+      #submit {
+        background: $grade-5;
+        padding: 16px 0;
+        border-radius: 36px;
+        font-size: 14px;
+        font-weight: 500;
+        text-align: center;
+        color: $white;
+        cursor: pointer;
+      }
+
+      >#warning {
+        font-size: 14px;
+        font-weight: 500;
+        text-align: center;
+        color: $grade-4;
+        margin-top: 20px;
       }
     }
   }

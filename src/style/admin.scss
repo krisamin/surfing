@@ -1,0 +1,183 @@
+@import "variables";
+
+#page.admin {
+  #header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 80px;
+
+    #text {
+      #title {
+        font-size: 40px;
+        font-weight: 700;
+        color: $grade-8;
+      }
+      #description {
+        font-size: 16px;
+        font-weight: 500;
+        color: $grade-4;
+        margin-top: 12px;
+      }
+    }
+
+    #circle {
+      flex-direction: row;
+      align-items: center;
+      gap: 24px;
+
+      #info {
+        align-items: flex-end;
+        gap: 10px;
+
+        #name {
+          font-size: 24px;
+          font-weight: 600;
+          color: $grade-8;
+        }
+
+        #category {
+          font-size: 14px;
+          font-weight: 500;
+          color: $grade-4;
+        }
+      }
+
+      #logo {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background-color: $white;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        background-size: 100%;
+      }
+    }
+  }
+
+  #content {
+    flex-direction: row;
+    margin-top: 48px;
+    margin-bottom: 160px;
+    gap: 20px;
+
+    #users {
+      width: 360px;
+      gap: 20px;
+
+      #user {
+        flex-direction: row;
+        padding: 24px 28px;
+        align-items: center;
+        justify-content: space-between;
+        background-color: rgba($grade-2, 0.2);
+        border: 1px solid $grade-2;
+        border-radius: 16px;
+        cursor: pointer;
+
+        &.selected {
+          background-color: rgba($grade-4, 0.2);
+          border: 2px solid $grade-4;
+          margin: -1px;
+        }
+
+        #name {
+          font-size: 24px;
+          font-weight: 600;
+          color: $grade-8;
+        }
+
+        #status {
+          font-size: 14px;
+          font-weight: 500;
+          color: $grade-4;
+
+          &.bold {
+            font-weight: 600;
+            color: $grade-6;
+          }
+
+          &.superbold {
+            font-size: 16px;
+            font-weight: 700;
+            color: $grade-8;
+          }
+        }
+      }
+    }
+
+    #application {
+      flex: 1;
+      background-color: rgba($grade-2, 0.2);
+      border: 1px solid $grade-2;
+      border-radius: 16px;
+      padding: 28px 32px;
+
+      &.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      #title {
+        font-size: 14px;
+        font-weight: 500;
+        color: $grade-3;
+      }
+
+      #list {
+        gap: 72px;
+        #item {
+          margin-top: 28px;
+          gap: 12px;
+
+          #question {
+            font-size: 20px;
+            font-weight: 600;
+            color: $grade-8;
+          }
+
+          #answer {
+            font-size: 16px;
+            font-weight: 400;
+            color: $grade-6;
+            line-height: 170%;
+          }
+
+          #count {
+            font-size: 14px;
+            font-weight: 500;
+            color: $grade-4;
+            align-self: flex-end;
+          }
+        }
+      }
+    }
+
+    #buttons {
+      flex-direction: row;
+      justify-content: center;
+      margin-top: 48px;
+      gap: 20px;
+
+      #button {
+        padding: 16px 36px;
+        border-radius: 36px;
+        cursor: pointer;
+
+        &.primary {
+          background-color: $grade-5;
+          color: $white;
+          font-size: 14px;
+          font-weight: 600;
+        }
+
+        &.secondary {
+          background-color: $grade-2;
+          color: $grade-8;
+          font-size: 14px;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
