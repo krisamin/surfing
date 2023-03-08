@@ -155,7 +155,7 @@ const Circle = () => {
                 {info.video && (
                   <div id="card" className="video">
                     <div id="inner">
-                      <iframe id="player" title="영상" type="text/html" src={ "http://www.youtube.com/embed/" + info.video} />
+                      <iframe id="player" title="영상" type="text/html" src={ "http://www.youtube.com/embed/" + info.video + "?enablejsapi=1&origin=https://preview.one"} />
                     </div>
                   </div>
                 )}
