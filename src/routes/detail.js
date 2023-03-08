@@ -139,27 +139,27 @@ const Circle = () => {
               )}
               {(info.awards[0].name || info.video) && (
                 <div id="col" style={{ flex: 6 }}>
-                {info.awards[0].name && (
-                  <div id="card" className="awards">
-                    <p id="title">수상 내역</p>
-                    <div id="list">
-                      {info.awards.map((award, index) => (
-                        <div id="item" key={ index }>
-                          <p id="level">{ award.level }</p>
-                          <p id="name">{ award.name }</p>
-                        </div>
-                      ))}
+                  {info.video && (
+                    <div id="card" className="video">
+                      <div id="inner">
+                        <iframe id="player" title="영상" type="text/html" src={ "https://www.youtube.com/embed/" + info.video + "?enablejsapi=1&origin=https://surfing.preview.one"} />
+                      </div>
                     </div>
-                  </div>
-                )}
-                {info.video && (
-                  <div id="card" className="video">
-                    <div id="inner">
-                      <iframe id="player" title="영상" type="text/html" src={ "https://www.youtube.com/embed/" + info.video + "?enablejsapi=1&origin=https://surfing.preview.one"} />
+                  )}
+                  {info.awards[0].name && (
+                    <div id="card" className="awards">
+                      <p id="title">수상 내역</p>
+                      <div id="list">
+                        {info.awards.map((award, index) => (
+                          <div id="item" key={ index } style={{ order:  -award.name.length }}>
+                            <p id="level">{ award.level }</p>
+                            <p id="name">{ award.name }</p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
-              </div>
+                  )}
+                </div>
               )}
             </div>
           )}
