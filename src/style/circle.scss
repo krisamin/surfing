@@ -102,11 +102,13 @@
       border-color: rgba($grade-8, 0.1);
       border-radius: 36px;
       cursor: pointer;
+      opacity: .5;
 
       &.active {
         background-color: $grade-5;
         color: $white;
         border-color: $grade-5;
+        opacity: 1;
       }
     }
   }

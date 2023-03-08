@@ -55,7 +55,7 @@ const Circle = () => {
     };
   }, [dispatch]);
 
-  const [isBoom, setIsBoom] = React.useState(false);
+  //const [isBoom, setIsBoom] = React.useState(false);
   React.useEffect(() => {
     if(!circleWidth) return;
     $("#root").off('scroll');
@@ -64,12 +64,12 @@ const Circle = () => {
       dispatch(circleSlice.actions.setScroll($("#root").scrollTop()));
     });
     
-    let count = 0;
+    /*let count = 0;
     for(const [, sub] of Object.entries(submit)) {
       if(!["REJECTED", "SECONDREJECTED"].includes(sub.status)) count += 1;
     }
     if(count === 0 && submit.length >= 1) setIsBoom(true);
-    else setIsBoom(false);
+    else setIsBoom(false);*/
   }, [dispatch, scroll, circleWidth, submit]);
 
   React.useEffect(() => {
@@ -79,7 +79,7 @@ const Circle = () => {
   return (
     <div id="page" className="circle">
       <Loading visible={(submit === false && auth.authenticated) || !circleWidth} />
-      {isBoom && (
+      {false && (
         <>
           <Fireworks
             options={{
@@ -123,7 +123,10 @@ const Circle = () => {
                 <div id="item" key={ index }>
                   <div id="logo"></div>
                   <div id="content">
-                    <div id="name">{ circles[item.circle_id - 1].name }</div>
+                    <div id="name">{ circles.map((circle, index) => {
+                      if(item.circle_id === circle.no) return circle.name;
+                      return null;
+                    })}</div>
                     <div id="status" className={
                       ["FIRST", "SECOND"].includes(item.status) ? "bold" : ["FINALCHOICE"].includes(item.status) ? "superbold" : ""
                     }>{ strings.result[item.status] }</div>
@@ -147,13 +150,13 @@ const Circle = () => {
         {circleWidth ? circles.map((item, index) => (
           <Link
             to={ `/circle/${ item.no }` }
-            id="circle" key={ item.no }
+            id="circle"
+            key={ item.no }
             style={{
               minWidth: circleWidth,
               maxWidth: circleWidth,
               display: search ? (item.name.includes(search) ? "flex" : "none") : (category ? (item.category === categories[category - 1] ? "flex" : "none") : "flex")
             }}
-            key={ index }
           >
             <div id="content">
               <div id="name">{ item.name }</div>

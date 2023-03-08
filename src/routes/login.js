@@ -19,6 +19,8 @@ const Circle = () => {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
 
+  const [warning, setWarning] = React.useState(false);
+
   React.useEffect(() => {
     if (authenticated) {
       navigate('/circle', { replace: true });
@@ -27,6 +29,7 @@ const Circle = () => {
 
   const [loading, setLoading] = React.useState(false);
   const login = async () => {
+    if (username === '' || password === '') return;
     setLoading(true);
     try {
       const result = await publicAxios.post('/auth/login', {
@@ -43,6 +46,7 @@ const Circle = () => {
       }));
     } catch (e) {
       console.log(e);
+      setWarning(true);
     }
     setLoading(false);
   };
@@ -51,7 +55,7 @@ const Circle = () => {
     <div id="page" className="login">
       <Loading visible={ loading } />
       <p id="title">로그인</p>
-      <p id="subtitle">디미고인 아이디로 로그인 해주세요.</p>
+      <p id="subtitle" className={ warning ? "warning" : "" }>{ warning ? '아이디나 비밀번호가 틀렸습니다.' : '디미고인 아이디로 로그인 해주세요.' }</p>
       <div id="input" className="username">
         <p id="placeholder">아이디</p>
         <input

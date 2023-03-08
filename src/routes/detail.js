@@ -116,37 +116,65 @@ const Circle = () => {
           )}
         </div>
       </div>
-      <div id="content">
-        <div id="card">
-          <p id="title">동아리 소개</p>
-          <div id="info">
-            {info.slogan && ( <p id="slogan">{ info.slogan }</p> )}
-            <p id="description" dangerouslySetInnerHTML={{__html: info.description.replace(/\n/g, "<br />")}} />
-          </div>
-        </div>
-        <div id="row">
-          <div id="card" style={{ flex: 7 }}>
-            <p id="title">활동 내역</p>
-            <div id="info">
-              <p id="description" dangerouslySetInnerHTML={{__html: info.activity.replace(/\n/g, "<br />")}} />
-            </div>
-          </div>
-          <div id="col" style={{ flex: 6 }}>
+      {(info.description || info.activity || info.awards[0].name || info.video) && (
+        <div id="content">
+          {info.description && (
             <div id="card">
-              <p id="title">수상 내역</p>
-              <div id="list">
-                {info.awards.map((award, index) => (
-                  <div id="item">
-                    <p id="level">{ award.level }</p>
-                    <p id="name">{ award.name }</p>
-                  </div>
-                ))}
+              <p id="title">동아리 소개</p>
+              <div id="info">
+                {info.slogan && ( <p id="slogan">{ info.slogan }</p> )}
+                <p id="description" dangerouslySetInnerHTML={{__html: info.description.replace(/\n/g, "<br />")}} />
               </div>
             </div>
-            <div id="card"></div>
-          </div>
+          )}
+          {(info.activity || info.awards[0].name || info.video) && (
+            <div id="row">
+              {info.activity && (
+                <div id="card" style={{ flex: 7 }}>
+                  <p id="title">활동 내역</p>
+                  <div id="info">
+                    <p id="description" dangerouslySetInnerHTML={{__html: info.activity.replace(/\n/g, "<br />")}} />
+                  </div>
+                </div>
+              )}
+              {(info.awards[0].name || info.video) && (
+                <div id="col" style={{ flex: 6 }}>
+                {info.awards[0].name && (
+                  <div id="card" className="awards">
+                    <p id="title">수상 내역</p>
+                    <div id="list">
+                      {info.awards.map((award, index) => (
+                        <div id="item" key={ index }>
+                          <p id="level">{ award.level }</p>
+                          <p id="name">{ award.name }</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {info.video && (
+                  <div id="card" className="video">
+                    <div id="inner">
+                      <iframe id="player" title="영상" type="text/html" src={ "http://www.youtube.com/embed/" + info.video} />
+                    </div>
+                  </div>
+                )}
+              </div>
+              )}
+            </div>
+          )}
         </div>
-      </div>
+      )}
+      {info.pic.length > 0 && (
+        <div id="gallery">
+          <p id="title" className="gallery">동아리 갤러리</p>
+          <div id="list">
+            {info.pic.map((item, index) => (
+              <div id="item" key={ index } style={{ backgroundImage: `url(/data/${info.no}/${item})` }} />
+            ))}
+          </div> 
+        </div>
+      )}
       <div id="apply" className={apply ? "show" : ""}>
         <div id="window">
           <div id="header">

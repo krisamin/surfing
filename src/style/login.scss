@@ -15,6 +15,11 @@
     font-weight: 500;
     color: $grade-4;
     margin-top: 12px;
+
+    &.warning {
+      font-weight: 600;
+      color: $grade-6;
+    }
   }
 
   #input {
