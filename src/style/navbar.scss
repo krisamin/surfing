@@ -1,9 +1,10 @@
 @import "variables";
+@import "./vars.scss";
 
 #navbar {
   overflow: hidden;
   height: 64px;
-  background-color: $grade-5;
+  background-color: var(--grade-5);
   flex-direction: row;
   justify-content: center;
 
@@ -17,12 +18,13 @@
 
   #logo {
     display: flex;
+    fill: var(--grade-8);
   }
 
   #search {
     input {
       background-color: rgba($white, 0.1);
-      color: $white;
+      color: var(--white);
       border: none;
       outline: none;
       width: 300px;
@@ -33,7 +35,7 @@
       font-weight: 500;
 
       &::placeholder {
-        color: $white;
+        color: var(--white);
         opacity: .6;
       }
     }
@@ -45,7 +47,7 @@
 
   #items {
     flex-direction: row;
-    color: $white;
+    color: var(--white);
     font-size: 14px;
     font-weight: 500;
     gap: 36px;
@@ -66,17 +68,17 @@
 
     #search {
       input {
-        background-color: rgba($grade-6, 0.1);
-        color: $grade-6;
+        background-color: rgba(var(--grade-6-hex), 0.1);
+        color: var(--grade-6);
 
         &::placeholder {
-          color: $grade-6;
+          color: var(--grade-6);
         }
       }
     }
 
     #items {
-      color: $grade-7;
+      color: var(--grade-7);
     }
   }
 }

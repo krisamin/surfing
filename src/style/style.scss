@@ -13,7 +13,7 @@
 
 html, body {
   width: 100%; height: 100%;
-  background-color: $grade-1;
+  background-color: var(--grade-1);
   overflow: hidden;
 }
 

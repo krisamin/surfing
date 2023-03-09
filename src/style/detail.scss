@@ -18,7 +18,7 @@
       border-radius: 50%;
       margin-left: 24px;
       margin-right: 28px;
-      background-color: $white;
+      background-color: var(--white);
       background-position: 50% 50%;
       background-repeat: no-repeat;
       background-size: 100%;
@@ -43,7 +43,7 @@
         #name {
           font-size: 40px;
           font-weight: 700;
-          color: $grade-8;
+          color: var(--grade-8);
 
           @media (max-width: 768px) {
             font-size: 30px;
@@ -58,16 +58,25 @@
           #link {
             display: flex;
             align-items: center;
+
+            svg {
+              fill: var(--grade-4);
+            }
           }
         }
       }
 
       #bottom {
         gap: 6px;
+
         p {
           font-size: 16px;
           font-weight: 500;
-          color: $grade-4;
+          color: var(--grade-4);
+        }
+
+        svg {
+          fill: var(--grade-4);
         }
       }
     }
@@ -78,16 +87,16 @@
 
     #buttons {
       #button {
-        background: $grade-5;
+        background: var(--grade-6);
         padding: 12px 24px;
         border-radius: 36px;
         font-size: 14px;
         font-weight: 500;
-        color: $white;
+        color: var(--white);
         cursor: pointer;
 
         &.disabled {
-          background: rgba($grade-5, 0.5);
+          background-color: rgba(var(--grade-5-hex), 0.5);
           pointer-events: none;
         }
       }
@@ -121,15 +130,15 @@
     }
 
     #card {
-      background-color: rgba($grade-2, 0.12);
+      background-color: rgba(var(--grade-2-hex), 0.12);
       padding: 28px 32px;
-      border: 1px solid $grade-2;
+      border: 1px solid var(--grade-2);
       border-radius: 16px;
 
       #title {
         font-size: 14px;
         font-weight: 500;
-        color: $grade-3;
+        color: var(--grade-3);
       }
       
       #info {
@@ -139,14 +148,14 @@
         #slogan {
           font-size: 32px;
           font-weight: 600;
-          color: $grade-6;
+          color: var(--grade-6);
         }
   
         #description {
           font-size: 16px;
           font-weight: 400;
           line-height: 180%;
-          color: $grade-8;
+          color: var(--grade-8);
         }
       }
 
@@ -163,14 +172,14 @@
           #level {
             font-size: 16px;
             font-weight: 600;
-            color: $grade-6;
+            color: var(--grade-6);
             white-space: nowrap;
           }
 
           #name {
             font-size: 16px;
             font-weight: 500;
-            color: $grade-5;
+            color: var(--grade-6);
             overflow:hidden;
             text-overflow:ellipsis;
             white-space:nowrap;
@@ -208,7 +217,7 @@
     #title {
       font-size: 16px;
       font-weight: 500;
-      color: $grade-3;
+      color: var(--grade-3);
       margin-bottom: 20px;
     }
 
@@ -227,7 +236,7 @@
         max-width: 400px;
         height: 225px;
         border-radius: 16px;
-        background-color: $grade-2;
+        background-color: var(--grade-2);
         background-position: 50% 50%;
         background-repeat: no-repeat;
         background-size: 100%;
@@ -260,7 +269,7 @@
     #window {
       width: calc(100% - 72px - 40px);
       max-width: 840px;
-      background-color: $grade-1;
+      background-color: var(--grade-1);
       border-radius: 24px;
       padding: 32px 36px;
       margin: 64px 0;
@@ -280,7 +289,7 @@
           border-radius: 50%;
           margin-left: 24px;
           margin-right: 16px;
-          background-color: $white;
+          background-color: var(--white);
           background-position: 50% 50%;
           background-repeat: no-repeat;
           background-size: 100%;
@@ -289,14 +298,14 @@
         #title {
           font-size: 20px;
           font-weight: 600;
-          color: $grade-8;
+          color: var(--grade-8);
           margin-right: 8px;
         }
 
         #subtitle {
           font-size: 16px;
           font-weight: 500;
-          color: $grade-4;
+          color: var(--grade-4);
         }
 
         #fill {
@@ -306,7 +315,7 @@
         #warning {
           font-size: 14px;
           font-weight: 500;
-          color: $grade-4;
+          color: var(--grade-4);
 
           @media (max-width: 768px) {
             display: none;
@@ -322,19 +331,19 @@
           #placeholder {
             font-size: 24px;
             font-weight: 600;
-            color: $grade-8;
+            color: var(--grade-8);
             margin-bottom: 20px;
           }
 
           textarea {
             height: 100px;
-            background-color: rgba($grade-2, 0.12);
-            border: 1px solid $grade-2;
+            background-color: rgba(var(--grade-2-hex), 0.12);
+            border: 1px solid var(--grade-2);
             border-radius: 16px;
             font-size: 16px;
             font-weight: 400;
             line-height: 180%;
-            color: $grade-4;
+            color: var(--grade-4);
             outline: none;
             padding: 24px;
             resize: none;
@@ -343,7 +352,7 @@
           #count {
             font-size: 14px;
             font-weight: 500;
-            color: $grade-3;
+            color: var(--grade-3);
             margin-top: 12px;
             align-self: flex-end;
           }
@@ -351,13 +360,13 @@
       }
 
       #submit {
-        background: $grade-5;
+        background: var(--grade-6);
         padding: 16px 0;
         border-radius: 36px;
         font-size: 14px;
         font-weight: 500;
         text-align: center;
-        color: $white;
+        color: var(--white);
         cursor: pointer;
       }
 
@@ -365,7 +374,7 @@
         font-size: 14px;
         font-weight: 500;
         text-align: center;
-        color: $grade-4;
+        color: var(--grade-4);
         margin-top: 20px;
       }
     }

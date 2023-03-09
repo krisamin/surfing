@@ -15,6 +15,7 @@ import { ReactComponent as WebSvg } from '../assets/surfing-web.svg';
 import strings from '../data/strings.json';
 import circles from '../data/circles';
 import questions from '../data/questions.json';
+import colors from '../data/colors.json';
 
 import { useSelector } from "react-redux";
 import { AxiosContext } from "../provider/axios";
@@ -37,6 +38,13 @@ const Circle = () => {
   const { auth, submit } = useSelector((state) => state.user);
   const { period } = useSelector((state) => state.circle);
 
+  const toRGB = (hex) => {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return [r, g, b].join(', ');
+  }
+
   React.useEffect(() => {
     const target = circles.map((item) => {
       if(item.no === +id) return item;
@@ -46,6 +54,60 @@ const Circle = () => {
       navigate('/circle', { replace: true });
     } else {
       setInfo(target);
+    }
+
+    const root = document.documentElement;
+    let color = colors[target.name];
+
+    if(!color) {
+      color = colors["기본"];
+    }
+    root.style.setProperty('--white', color["white"]);
+    root.style.setProperty('--grade-1', color["grade-1"]);
+    root.style.setProperty('--grade-2', color["grade-2"]);
+    root.style.setProperty('--grade-3', color["grade-3"]);
+    root.style.setProperty('--grade-4', color["grade-4"]);
+    root.style.setProperty('--grade-5', color["grade-5"]);
+    root.style.setProperty('--grade-6', color["grade-6"]);
+    root.style.setProperty('--grade-7', color["grade-7"]);
+    root.style.setProperty('--grade-8', color["grade-8"]);
+    root.style.setProperty('--grade-9', color["grade-9"]);
+    root.style.setProperty('--black', color["black"]);
+    root.style.setProperty('--white-hex', toRGB(color["white"]));
+    root.style.setProperty('--grade-1-hex', toRGB(color["grade-1"]));
+    root.style.setProperty('--grade-2-hex', toRGB(color["grade-2"]));
+    root.style.setProperty('--grade-3-hex', toRGB(color["grade-3"]));
+    root.style.setProperty('--grade-4-hex', toRGB(color["grade-4"]));
+    root.style.setProperty('--grade-5-hex', toRGB(color["grade-5"]));
+    root.style.setProperty('--grade-6-hex', toRGB(color["grade-6"]));
+    root.style.setProperty('--grade-7-hex', toRGB(color["grade-7"]));
+    root.style.setProperty('--grade-8-hex', toRGB(color["grade-8"]));
+    root.style.setProperty('--grade-9-hex', toRGB(color["grade-9"]));
+    root.style.setProperty('--black-hex', toRGB(color["black"]));
+
+    return () => {
+      root.style.removeProperty('--white');
+      root.style.removeProperty('--grade-1');
+      root.style.removeProperty('--grade-2');
+      root.style.removeProperty('--grade-3');
+      root.style.removeProperty('--grade-4');
+      root.style.removeProperty('--grade-5');
+      root.style.removeProperty('--grade-6');
+      root.style.removeProperty('--grade-7');
+      root.style.removeProperty('--grade-8');
+      root.style.removeProperty('--grade-9');
+      root.style.removeProperty('--black');
+      root.style.removeProperty('--white-hex');
+      root.style.removeProperty('--grade-1-hex');
+      root.style.removeProperty('--grade-2-hex');
+      root.style.removeProperty('--grade-3-hex');
+      root.style.removeProperty('--grade-4-hex');
+      root.style.removeProperty('--grade-5-hex');
+      root.style.removeProperty('--grade-6-hex');
+      root.style.removeProperty('--grade-7-hex');
+      root.style.removeProperty('--grade-8-hex');
+      root.style.removeProperty('--grade-9-hex');
+      root.style.removeProperty('--black-hex');
     }
   }, [id, navigate]);
 

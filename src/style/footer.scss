@@ -1,8 +1,9 @@
 @import "variables";
+@import "./vars.scss";
 
 #footer {
-  background-color: $grade-5;
-  color: $white;
+  background-color: var(--grade-5);
+  color: var(--white);
   flex-direction: row;
   justify-content: center;
 
@@ -21,6 +22,11 @@
       font-weight: 500;
       margin-top: 14px;
       opacity: .4;
+    }
+
+    svg {
+      fill: var(--grade-6);
+      opacity: .56;
     }
   }
 
@@ -41,7 +47,7 @@
   }
 
   &.glass {
-    background: $grade-2;
-    color: $grade-6;
+    background: var(--grade-2);
+    color: var(--grade-6);
   }
 }
