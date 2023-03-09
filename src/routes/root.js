@@ -57,18 +57,13 @@ const Root = () => {
   }, [authAxios, dispatch]);
 
   React.useEffect(() => {
-    if (authenticated) {
-      loadInfo();
-    }
-  }, [authenticated, loadInfo, getUserSubmit, getPeriod]);
-
-  React.useEffect(() => {
     $('#root').scrollTop(0);
     getPeriod();
     if (authenticated) {
+      loadInfo();
       getUserSubmit();
     }
-  }, [location, authenticated, getUserSubmit, getPeriod]);
+  }, [location, authenticated, loadInfo, getUserSubmit, getPeriod]);
 
   return (
     <div>

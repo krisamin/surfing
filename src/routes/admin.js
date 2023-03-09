@@ -86,6 +86,14 @@ const Admin = () => {
     setLoading(false);
   }, [authAxios, submitList, selectedSubmit, getSubmits, period]);
 
+  const fillZero = (num, zero) => {
+    let str = num.toString();
+    while(str.length < zero) {
+      str = "0" + str;
+    }
+    return str;
+  }
+
   console.log("update");
   return (
     <div id="page" className="admin">
@@ -122,7 +130,7 @@ const Admin = () => {
                   setSelectedSubmit(false);
                 }
               }}>
-                <p id="name">{ submit.submitter_grade }{ submit.submitter_class }** { submit.submitter_realname }</p>
+                <p id="name">{ submit.submitter_grade }{ submit.submitter_class }{ fillZero(submit.submitter_student_no, 2) } { submit.submitter_realname }</p>
                 <p id="status" className={
                   ["FIRST", "SECOND"].indexOf(submit.status) !== -1 ? "bold" : ["FINALCHOICE"].indexOf(submit.status) !== -1 ? "superbold" : ""
                 }>{ strings.result[submit.status] }</p>

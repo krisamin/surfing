@@ -48,7 +48,10 @@
           width: 90px; min-width: 90px;
           height: 90px;
           border-radius: 50%;
-          background-color: $grade-2;
+          background-color: $white;
+          background-position: 50% 50%;
+          background-repeat: no-repeat;
+          background-size: 100%;
         }
 
         #content {

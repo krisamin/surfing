@@ -121,7 +121,15 @@ const Circle = () => {
             {submit && submit.length ? submit.map((item, index) => {
               return (
                 <div id="item" key={ index }>
-                  <div id="logo"></div>
+                  <div
+                    id="logo"
+                    style={{
+                      backgroundImage: `url(/data/${item.circle_id}/${ circles.map((circle, index) => {
+                        if(item.circle_id === circle.no) return circle.logo;
+                        return null;
+                      }).filter((item) => item !== null)[0]})`
+                    }} 
+                  />
                   <div id="content">
                     <div id="name">{ circles.map((circle, index) => {
                       if(item.circle_id === circle.no) return circle.name;

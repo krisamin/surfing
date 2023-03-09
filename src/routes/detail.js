@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 
 import { ReactComponent as BackSvg } from '../assets/back.svg';
 import { ReactComponent as CloseSvg } from '../assets/close.svg';
+import { ReactComponent as WarningSvg } from '../assets/warning.svg';
 import { ReactComponent as CategorySvg } from '../assets/surfing-category.svg';
 import { ReactComponent as InstagramSvg } from '../assets/surfing-instagram.svg';
 import { ReactComponent as WebSvg } from '../assets/surfing-web.svg';
@@ -27,7 +28,7 @@ const Circle = () => {
   const { id } = useParams();
 //  const dispatch = useDispatch();
   const { authAxios } = React.useContext(AxiosContext);
-  const [info, setInfo] = React.useState(null);
+  const [circleInfo, setCircleInfo] = React.useState(null);
   const [apply, setApply] = React.useState(false);
   const [writing, setWriting] = React.useState({
     0: "",
@@ -35,8 +36,39 @@ const Circle = () => {
     2: "",
     3: "",
   });
-  const { auth, submit } = useSelector((state) => state.user);
+  const { auth, submit, info } = useSelector((state) => state.user);
   const { period } = useSelector((state) => state.circle);
+
+  const [numberName, setNumberName] = React.useState("");
+  const numberNameRegex = new RegExp("^[0-9]{4} .{2,5}$");
+
+  const fillZero = (num, zero) => {
+    let str = num.toString();
+    while(str.length < zero) {
+      str = "0" + str;
+    }
+    return str;
+  }
+
+  const [isFirst, setIsFirst] = React.useState(true);
+  React.useEffect(() => {
+    if(!info.user_id || !id) return;
+    const writing = localStorage.getItem(`writing-${ info.user_id }-${ id }`);
+    if(writing) {
+      setWriting(JSON.parse(writing));
+    }
+    setIsFirst(false);
+  }, [id, info]);
+
+  React.useEffect(() => {
+    if(!info.user_id || !id || isFirst) return;
+    localStorage.setItem(`writing-${ info.user_id }-${ id }`, JSON.stringify(writing));
+  }, [writing, id, info, isFirst]);
+
+  React.useEffect(() => {
+    if(!info.user_student_no) return;
+    setNumberName(`${ info.user_grade }${ info.user_class }${ fillZero(info.user_student_no, 2) } ${ info.real_name }`);
+  }, [info]);
 
   const toRGB = (hex) => {
     const r = parseInt(hex.slice(1, 3), 16);
@@ -53,7 +85,7 @@ const Circle = () => {
     if(target == null) {
       navigate('/circle', { replace: true });
     } else {
-      setInfo(target);
+      setCircleInfo(target);
     }
 
     const root = document.documentElement;
@@ -113,6 +145,16 @@ const Circle = () => {
   const onSubmit = async () => {
     setLoading(true);
     try {
+      const result = await authAxios.post('/auth/student_info', {
+        user_student_no: numberName.split(" ")[0].substring(2, 4),
+        user_realname: numberName.split(" ")[1],
+      });
+      console.log(result.data);
+    } catch (e) {
+      console.log(e);
+    }
+
+    try {
       const data = {
         circle_id: id,
         question1: writing[0],
@@ -129,7 +171,7 @@ const Circle = () => {
     setLoading(false);
   };
 
-  return info ? (
+  return circleInfo ? (
     <div id="page" className="detail">
       <Loading visible={ loading } />
       <div id="header">
@@ -144,21 +186,21 @@ const Circle = () => {
         <div
           id="logo"
           style={{
-            opacity: info.logo ? 1 : 0,
-            backgroundImage: `url(/data/${info.no}/${info.logo})`
+            opacity: circleInfo.logo ? 1 : 0,
+            backgroundImage: `url(/data/${circleInfo.no}/${circleInfo.logo})`
           }}
         />
         <div id="info">
           <div id="top">
-            <p id="name">{info.name}</p>
+            <p id="name">{circleInfo.name}</p>
             <div id="links">
-              {info.instagram && ( <a id="link" href={ info.instagram } rel="noreferrer" target="_blank"><InstagramSvg /></a> )}
-              {info.link && ( <a id="link" href={ info.link } rel="noreferrer" target="_blank"><WebSvg /></a> )}
+              {circleInfo.instagram && ( <a id="link" href={ circleInfo.instagram } rel="noreferrer" target="_blank"><InstagramSvg /></a> )}
+              {circleInfo.link && ( <a id="link" href={ circleInfo.link } rel="noreferrer" target="_blank"><WebSvg /></a> )}
             </div>
           </div>
           <div id="bottom">
             <CategorySvg />
-            <p>{info.category}</p>
+            <p>{circleInfo.category}</p>
           </div>
         </div>
         <div id="fill"></div>
@@ -176,41 +218,41 @@ const Circle = () => {
           )}
         </div>
       </div>
-      {(info.description || info.activity || (info.awards.length !== 0) || info.video) && (
+      {(circleInfo.description || circleInfo.activity || (circleInfo.awards.length !== 0) || circleInfo.video) && (
         <div id="content">
-          {info.description && (
+          {circleInfo.description && (
             <div id="card">
               <p id="title">동아리 소개</p>
               <div id="info">
-                {info.slogan && ( <p id="slogan">{ info.slogan }</p> )}
-                <p id="description" dangerouslySetInnerHTML={{__html: info.description.replace(/\n/g, "<br />")}} />
+                {circleInfo.slogan && ( <p id="slogan">{ circleInfo.slogan }</p> )}
+                <p id="description" dangerouslySetInnerHTML={{__html: circleInfo.description.replace(/\n/g, "<br />")}} />
               </div>
             </div>
           )}
-          {(info.activity || (info.awards.length !== 0) || info.video) && (
+          {(circleInfo.activity || (circleInfo.awards.length !== 0) || circleInfo.video) && (
             <div id="row">
-              {info.activity && (
+              {circleInfo.activity && (
                 <div id="card" style={{ flex: 7 }}>
                   <p id="title">활동 내역</p>
                   <div id="info">
-                    <p id="description" dangerouslySetInnerHTML={{__html: info.activity.replace(/\n/g, "<br />")}} />
+                    <p id="description" dangerouslySetInnerHTML={{__html: circleInfo.activity.replace(/\n/g, "<br />")}} />
                   </div>
                 </div>
               )}
-              {((info.awards.length !== 0) || info.video) && (
+              {((circleInfo.awards.length !== 0) || circleInfo.video) && (
                 <div id="col" style={{ flex: 6 }}>
-                  {info.video && (
+                  {circleInfo.video && (
                     <div id="card" className="video">
                       <div id="inner">
-                        <iframe id="player" title="영상" type="text/html" src={ "https://www.youtube.com/embed/" + info.video + "?enablejsapi=1&origin=https://surfing.preview.one"} />
+                        <iframe id="player" title="영상" type="text/html" src={ "https://www.youtube.com/embed/" + circleInfo.video + "?enablejsapi=1&origin=https://surfing.preview.one"} />
                       </div>
                     </div>
                   )}
-                  {(info.awards.length !== 0) && (
+                  {(circleInfo.awards.length !== 0) && (
                     <div id="card" className="awards">
                       <p id="title">수상 내역</p>
                       <div id="list">
-                        {info.awards.map((award, index) => (
+                        {circleInfo.awards.map((award, index) => (
                           <div id="item" key={ index } style={{ order:  -award.name.length }}>
                             <p id="level">{ award.level }</p>
                             <p id="name">{ award.name }</p>
@@ -225,12 +267,12 @@ const Circle = () => {
           )}
         </div>
       )}
-      {info.pic.length > 0 && (
+      {circleInfo.pic.length > 0 && (
         <div id="gallery">
           <p id="title" className="gallery">동아리 갤러리</p>
           <div id="list">
-            {info.pic.map((item, index) => (
-              <div id="item" key={ index } style={{ backgroundImage: `url(/data/${info.no}/${item})` }} />
+            {circleInfo.pic.map((item, index) => (
+              <div id="item" key={ index } style={{ backgroundImage: `url(/data/${circleInfo.no}/${item})` }} />
             ))}
           </div> 
         </div>
@@ -249,20 +291,21 @@ const Circle = () => {
             <div
               id="logo"
               style={{
-                opacity: info.logo ? 1 : 0,
-                backgroundImage: `url(/data/${info.no}/${info.logo})`
+                opacity: circleInfo.logo ? 1 : 0,
+                backgroundImage: `url(/data/${circleInfo.no}/${circleInfo.logo})`
               }}
             />
-            <p id="title">{info.name}</p>
+            <p id="title">{circleInfo.name}</p>
             <p id="subtitle">지원하기</p>
             <div id="fill"></div>
-            <p id="warning">작성하신 내용은 창을 닫아도 자동으로 저장됩니다</p>
+            <p id="warning"><WarningSvg />작성하신 내용은 창을 닫아도 자동으로 저장됩니다</p>
           </div>
           <div id="content">
             {questions.map((question, index) => (
               <div id="input" key={index}>
                 <p id="placeholder">{question}</p>
                 <textarea
+                  placeholder="최대 300자로 작성해주세요."
                   id="name"
                   type="text"
                   value={writing[index]}
@@ -277,11 +320,24 @@ const Circle = () => {
                 <p id="count">{ writing[index].length } / 300</p>
               </div>
             ))}
+            <div id="input">
+              <p id="placeholder">마지막으로, 본인의 학번과 이름을 입력해주세요.</p>
+              <input
+                placeholder="예시) 1230 강디미"
+                value={ numberName }
+                onChange={(e) => {
+                  setNumberName(e.target.value);
+                }}
+                readOnly={ info.user_student_no }
+                id="name"
+                type="text"
+              />
+            </div>
           </div>
-          <div id="submit" onClick={onSubmit}>
+          <div id="submit" onClick={onSubmit} className={ writing[0] && writing[1] && writing[2] && writing[3] && numberNameRegex.test(numberName) ? "" : "disabled" }>
             제출하기
           </div>
-          <p id="warning">제출하시면 내용을 변경할 수 없습니다</p>
+          <p id="warning"><WarningSvg />제출하시면 내용을 변경할 수 없습니다</p>
         </div>
       </div>
     </div>

@@ -90,6 +90,19 @@
     "grade-9": "#1a2f2c",
     "black": "#0f1b19"
   },
+  "엠팩": {
+    "white": "#fdfdfe",
+    "grade-1": "#dce1ea",
+    "grade-2": "#c4cad7",
+    "grade-3": "#a1a9bc",
+    "grade-4": "#707e9a",
+    "grade-5": "#4d5f82",
+    "grade-6": "#213b6e",
+    "grade-7": "#1a2f58",
+    "grade-8": "#0f1b32",
+    "grade-9": "#0b1527",
+    "black": "#070c16"
+  },
   "빗자루": {
     "white": "#fffffe",
     "grade-1": "#f8f4e6",
@@ -206,6 +219,19 @@
     "grade-8": "#0e3d31",
     "grade-9": "#0b2f26",
     "black": "#061b16"
+  },
+  "애퍼처": {
+    "white": "#fdfdfe",
+    "grade-1": "#dde2ed",
+    "grade-2": "#c5ccdc",
+    "grade-3": "#a3acc1",
+    "grade-4": "#7382a2",
+    "grade-5": "#51648d",
+    "grade-6": "#27437f",
+    "grade-7": "#1f3666",
+    "grade-8": "#121e39",
+    "grade-9": "#0e182d",
+    "black": "#080d19"
   },
   "게임즈": {
     "white": "#fffefd",
