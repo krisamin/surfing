@@ -139,7 +139,7 @@ TRUST(트러스트)는 해킹에 관심이 있고, 배우고자 하는 열정이
     `,
     "activity": ``,
     "instagram": "https://www.instagram.com/crevice_dimigo",
-    "link": "https://www.notion.so/CREVICE-3bd6a177e8924a30a3856fb1a12eefec",
+    "link": "https://chip-saga-c79.notion.site/CREVICE-2023-d07f1449deed461bb5070e379f705712",
     "awards": [
       {"level": "최우수상", "name": "2022 대-스쿨 해결사 대기업 협업 아이디어 경진대회"},
       {"level": "우수상", "name": "2022 JA Korea 삼성 창업놀이터 비즈니스 모델 전시부문"},
@@ -484,7 +484,7 @@ Find your dream Noise (외 다수)
 하나도 몰라도 괜찮습니다. '온'은 코딩의 기초부터 하나씩 차근차근 배워갑니다. 코딩을 몰라도 동아리 활동에 있어서 어려움은 없을 거예요. 이에 대해선 고민 말고 지원해 주세요.`,
     "activity": ``,
     "instagram": "",
-    "link": "",
+    "link": "https://alike-pizza-391.notion.site/Introduce-O-n-6458d454891642a3b6eb45fa3985f901",
     "awards": [
     ],
     "video": "",
