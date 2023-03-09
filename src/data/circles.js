@@ -396,7 +396,7 @@ Find your dream Noise (외 다수)
 등등 저희 동아리원들의 상상을 아이디어로 다양한 프로젝트를 진행했습니다
 `,
     "instagram": "https://www.instagram.com/implude_official/",
-    "link": "https://www.notion.so/implude22/45df7ba81470436ca8eca65f9e4633ff?v=4eb79ad6886f493aa22e91683d9b2fff&pvs=4",
+    "link": "https://implude23.notion.site/IMPLUDE-2023-e421a3357e1742fc812708ba4b52cc9d",
     "awards": [
       {"level": "대상", "name": "2022 STAC(SK Smarteen App Challenge) 미래산업부문 "},
       {"level": "특별상", "name": "2022 공개SW개발자대회 "},
