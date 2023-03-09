@@ -622,10 +622,10 @@ Find your dream Noise (외 다수)
 코드베이커리에서 하는 활동에 대한 구체적인 설명은 코드베이커리 노션 사이트와 인스타그램 게시물을 통해 확인 하실 수 있습니다 😍
 `,
     "instagram": "https://www.instagram.com/code_bakery/",
-    "link": "https://codebakery.notion.site/0a49d3cf07c4471f8576c0339e06ad57",
+    "link": "https://linktr.ee/codebakery",
     "awards": [
     ],
-    "video": "",
+    "video": "wsmUQlJ4YOw",
     "youtube": "https://www.youtube.com/@codebakery",
     "pic": ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png", "7.png", "8.png", "9.png", "10.png"],
     "file1": true,
@@ -646,7 +646,7 @@ Find your dream Noise (외 다수)
     "link": "",
     "awards": [
     ],
-    "video": "wsmUQlJ4YOw",
+    "video": "",
     "youtube": "https://www.youtube.com/channel/UCYUTkGoD88TyVvf45XQ0K6g",
     "pic": ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png", "7.png", "8.png", "9.png"],
     "file1": true,
