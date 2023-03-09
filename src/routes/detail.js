@@ -59,9 +59,7 @@ const Circle = () => {
     const root = document.documentElement;
     let color = colors[target.name];
 
-    if(!color) {
-      color = colors["기본"];
-    }
+    if(!color) color = colors["기본"];
     root.style.setProperty('--white', color["white"]);
     root.style.setProperty('--grade-1', color["grade-1"]);
     root.style.setProperty('--grade-2', color["grade-2"]);
@@ -178,7 +176,7 @@ const Circle = () => {
           )}
         </div>
       </div>
-      {(info.description || info.activity || info.awards[0].name || info.video) && (
+      {(info.description || info.activity || (info.awards.length !== 0) || info.video) && (
         <div id="content">
           {info.description && (
             <div id="card">
@@ -189,7 +187,7 @@ const Circle = () => {
               </div>
             </div>
           )}
-          {(info.activity || info.awards[0].name || info.video) && (
+          {(info.activity || (info.awards.length !== 0) || info.video) && (
             <div id="row">
               {info.activity && (
                 <div id="card" style={{ flex: 7 }}>
@@ -199,7 +197,7 @@ const Circle = () => {
                   </div>
                 </div>
               )}
-              {(info.awards[0].name || info.video) && (
+              {((info.awards.length !== 0) || info.video) && (
                 <div id="col" style={{ flex: 6 }}>
                   {info.video && (
                     <div id="card" className="video">
@@ -208,7 +206,7 @@ const Circle = () => {
                       </div>
                     </div>
                   )}
-                  {info.awards[0].name && (
+                  {(info.awards.length !== 0) && (
                     <div id="card" className="awards">
                       <p id="title">수상 내역</p>
                       <div id="list">
