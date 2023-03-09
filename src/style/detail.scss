@@ -124,13 +124,16 @@
 
       @media (max-width: 768px) {
         flex-direction: column;
-        align-items: stretch;
       }
     }
 
     #col {
       gap: 24px;
       overflow: hidden;
+
+      @media (max-width: 768px) {
+        flex: unset !important;
+      }
     }
 
     #card {
@@ -138,6 +141,10 @@
       padding: 28px 32px;
       border: 1px solid var(--grade-2);
       border-radius: 16px;
+
+      @media (max-width: 768px) {
+        flex: unset !important;
+      }
 
       #title {
         font-size: 14px;
