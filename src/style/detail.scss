@@ -11,6 +11,9 @@
     #back {
       cursor: pointer;
 
+      padding: 20px;
+      margin: -20px;
+
       svg {
         fill: var(--grade-3);
       }
@@ -62,6 +65,9 @@
           #link {
             display: flex;
             align-items: center;
+
+            padding: 7px;
+            margin: -7px;
 
             svg {
               fill: var(--grade-4);
