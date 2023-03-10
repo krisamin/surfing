@@ -65,7 +65,6 @@ export const logout = () => async dispatch => {
   } catch (e) {
     console.log(e);
   }
-  console.log(result.data);
   dispatch(userSlice.actions.setAuth({
     accessToken: null,
     refreshToken: null,
