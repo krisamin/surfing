@@ -205,7 +205,7 @@ TRUST(트러스트)는 해킹에 관심이 있고, 배우고자 하는 열정이
     "no": 6,
     "name": "빗자루",
     "logo": "logo.webp",
-    "category": "영상",
+    "category": "광고",
     "slogan": "",
     "description": `‘빗자루’는 교내 유일 광고동아리로 10년째 이어져 오고 있는 디미고 동아리입니다. 
 빗자루에서는 이론 위주의 지루한 동아리 활동이 아닌, 
@@ -503,7 +503,7 @@ DAW 프로그램과 친해질 수 있는 카피 프로젝트 진행
     ],
     "youtube": "",
     "video": "aTLqtDAXjnA",
-    "pic": ["1.webp", "1.webp", "2.webp", "3.webp", "4.webp"],
+    "pic": ["1.webp", "2.webp", "3.webp", "4.webp"],
     "file1": true,
     "file2": true
   },
