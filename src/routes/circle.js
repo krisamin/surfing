@@ -9,6 +9,8 @@ import '../style/circle.scss';
 import circles from '../data/circles';
 import strings from '../data/strings.json';
 
+import { ReactComponent as WarningSvg } from '../assets/warning.svg';
+
 import { useDispatch, useSelector } from "react-redux";
 import userSlice from "../redux/slices/user";
 import circleSlice from "../redux/slices/circle";
@@ -19,7 +21,7 @@ import Confetti from "react-confetti";
 const Circle = () => {
   const dispatch = useDispatch();
   const [circleWidth, setCircleWidth] = React.useState(0);
-  const { search, scroll, category } = useSelector((state) => state.circle);
+  const { search, scroll, category, period } = useSelector((state) => state.circle);
   const { auth, submit } = useSelector((state) => state.user);
 
   let categories = [];
@@ -111,11 +113,11 @@ const Circle = () => {
       )}
       <p id="title">동아리 목록</p>
       <p id="description">surfing에서 전시하는 동아리 목록입니다.</p>
-      {(auth.authenticated /*&& (submit.length || typeof(submit) === "boolean")*/) ? (
+      {(auth.authenticated && period !== "PREPARING" /*&& (submit.length || typeof(submit) === "boolean")*/) ? (
         <div id="my">
           <div id="text">
             <p>내 지원 현황</p>
-            <p>신청한 뒤에는 취소할 수 없어요</p>
+            <p><WarningSvg />신청한 뒤에는 취소할 수 없어요</p>
           </div>
           <div id="list">
             {submit && submit.length ? submit.map((item, index) => {

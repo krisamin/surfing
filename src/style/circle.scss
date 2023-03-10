@@ -27,6 +27,15 @@
       font-size: 14px;
       font-weight: 500;
       color: $grade-4;
+
+      p {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        svg {
+          fill: $grade-4;
+        }
+      }
     }
 
     #list {

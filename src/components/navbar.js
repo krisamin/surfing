@@ -16,7 +16,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const { authenticated } = useSelector(state => state.user.auth);
   const { info } = useSelector(state => state.user);
-  const { search/*, period*/ } = useSelector(state => state.circle);
+  const { search, period } = useSelector(state => state.circle);
 
   return (
     <div id="navbar" className={location === "" ? "" : "glass"}>
@@ -53,7 +53,7 @@ const Navbar = () => {
               신청 관리
             </Link>
           )}
-          {/*period && !["PREPARING", "EOL"].includes(period)*/ true && (
+          {period && !["PREPARING", "EOL"].includes(period) && (
             authenticated ? (
               <div id="item" onClick={() => dispatch(logout())}>
                 {info?.real_name} 님
