@@ -53,13 +53,18 @@ const userSlice = createSlice({
 
 export const logout = () => async dispatch => {
   console.log('logout');
-  const result = await axios({
-    method: 'GET',
-    url: apiUrl + 'auth/logout',
-    params: {
-      refresh_token: localStorage.getItem('refreshToken'),
-    },
-  });
+  try {
+    const result = await axios({
+      method: 'GET',
+      url: apiUrl + 'auth/logout',
+      params: {
+        refresh_token: localStorage.getItem('refreshToken'),
+      },
+    });
+    console.log(result.data);
+  } catch (e) {
+    console.log(e);
+  }
   console.log(result.data);
   dispatch(userSlice.actions.setAuth({
     accessToken: null,
