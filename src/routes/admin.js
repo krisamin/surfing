@@ -100,7 +100,7 @@ const Admin = () => {
       <Loading visible={loading} />
       <div id="header">
         <div id="text">
-          <p id="title">신청 관리</p>
+          <p id="title">신청 관리 - {submitList.length}개</p>
           <p id="description">내가 동장인 동아리를 관리할 수 있습니다.</p>
         </div>
         {circleId !== false && (
