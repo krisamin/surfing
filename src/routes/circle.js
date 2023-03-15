@@ -57,7 +57,7 @@ const Circle = () => {
     };
   }, [dispatch]);
 
-  //const [isBoom, setIsBoom] = React.useState(false);
+  const [isBoom, setIsBoom] = React.useState(false);
   React.useEffect(() => {
     if(!circleWidth) return;
     $("#root").off('scroll');
@@ -66,11 +66,13 @@ const Circle = () => {
       dispatch(circleSlice.actions.setScroll($("#root").scrollTop()));
     });
     
-    /*let count = 0;
+    let count = 0;
     for(const [, sub] of Object.entries(submit)) {
       if(!["REJECTED", "SECONDREJECTED"].includes(sub.status)) count += 1;
     }
-    if(count === 0 && submit.length >= 1) setIsBoom(true);
+    if(count) setIsBoom(true);
+    else setIsBoom(false);
+    /*if(count === 0 && submit.length >= 1) setIsBoom(true);
     else setIsBoom(false);*/
   }, [dispatch, scroll, circleWidth, submit]);
 
@@ -81,7 +83,7 @@ const Circle = () => {
   return (
     <div id="page" className="circle">
       <Loading visible={(submit === false && auth.authenticated) || !circleWidth} />
-      {false && (
+      {isBoom && (
         <>
           <Fireworks
             options={{
