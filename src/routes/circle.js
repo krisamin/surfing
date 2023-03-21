@@ -15,11 +15,14 @@ import { useDispatch, useSelector } from "react-redux";
 import userSlice from "../redux/slices/user";
 import circleSlice from "../redux/slices/circle";
 
+import { AxiosContext } from "../provider/axios";
+
 import { Fireworks } from '@fireworks-js/react';
 import Confetti from "react-confetti";
 
 const Circle = () => {
   const dispatch = useDispatch();
+  const { authAxios } = React.useContext(AxiosContext);
   const [circleWidth, setCircleWidth] = React.useState(0);
   const { search, scroll, category, period } = useSelector((state) => state.circle);
   const { auth, submit } = useSelector((state) => state.user);
@@ -56,6 +59,23 @@ const Circle = () => {
       $("#root").off('scroll');
     };
   }, [dispatch]);
+
+  const onFinalChoice = async (circle_id) => {
+    if(window.confirm("정말로 최종 선택하시겠습니까? 이후에는 변경할 수 없습니다.")) {
+      try {
+        const result = await authAxios.get("/submit/final_choice", {
+          params: {
+            circle_id,
+          },
+        });
+        console.log(result.data);
+        window.location.reload();
+      } catch (e) {
+        alert("이미 최종 선택한 동아리가 있습니다.");
+        console.log(e);
+      }
+    }
+  }
 
   const [isBoom, setIsBoom] = React.useState(false);
   React.useEffect(() => {
@@ -119,12 +139,16 @@ const Circle = () => {
         <div id="my">
           <div id="text">
             <p>내 지원 현황</p>
-            <p><WarningSvg />신청한 뒤에는 취소할 수 없어요</p>
+            <p><WarningSvg />"면접 합격" 중 "최종 선택"할 동아리 박스를 클릭해주세요!</p>
           </div>
           <div id="list">
             {submit && submit.length ? submit.map((item, index) => {
               return (
-                <div id="item" key={ index }>
+                <div id="item" key={ index } style={{
+                  cursor: item.status === "SECOND" ? "pointer" : "default",
+                }} onClick={() => {
+                  if(item.status === "SECOND") onFinalChoice(item.circle_id);
+                }}>
                   <div
                     id="logo"
                     style={{
