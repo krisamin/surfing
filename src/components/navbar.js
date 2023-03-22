@@ -53,7 +53,7 @@ const Navbar = () => {
               신청 관리
             </Link>
           )}
-          {period && !["PREPARING", "EOL"].includes(period) && (
+          {period && !["PREPARING"].includes(period) && (
             authenticated ? (
               <div id="item" onClick={() => dispatch(logout())}>
                 {info?.real_name} 님
