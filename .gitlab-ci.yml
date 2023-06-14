@@ -1,8 +1,37 @@
-pages:
- script:
- - mkdir .public
- - cp -r * .public
- - mv .public public
- artifacts:
+image: node:18.16.0
+
+build:
+  stage: build
+  cache:
     paths:
-    - public
+      - node_modules/
+  script:
+    - node -v
+    - yarn
+    - yarn build
+  artifacts:
+    paths:
+      - build
+
+test:
+  stage: test
+  cache:
+    paths:
+      - node_modules/
+    policy: pull
+  script:
+    - yarn test
+
+pages:
+  stage: deploy
+  dependencies: 
+    - build
+  script:
+    - rm -rf public
+    - cp build/index.html build/404.html
+    - mv build public
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
