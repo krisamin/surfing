@@ -1,6 +1,16 @@
 image: node:18.16.0
 
-build:
+default:
+  tags:
+    - power
+
+stages:
+  - build
+  - test
+  - deploy
+
+
+build-job:
   stage: build
   cache:
     paths:
@@ -13,7 +23,7 @@ build:
     paths:
       - build
 
-test:
+test-job:
   stage: test
   cache:
     paths:
@@ -22,10 +32,10 @@ test:
   script:
     - yarn test
 
-pages:
+pages-job:
   stage: deploy
   dependencies: 
-    - build
+    - build-job
   script:
     - rm -rf public
     - cp build/index.html build/404.html
