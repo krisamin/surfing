@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "checkJs": false,
     "baseUrl": "src",
     "paths": {
       "@src/*": ["./*"],
@@ -11,5 +12,8 @@
       "@routes/*": ["./routes/*"],
       "@styles/*": ["./styles/*"]
     }
-  }
+  },
+  "include": [
+    "./src/**/*"
+  ]
 }
