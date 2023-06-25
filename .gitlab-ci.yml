@@ -15,7 +15,7 @@ build-job:
     paths:
       - node_modules/
   script:
-    - ping google.com
+    - curl https://google.com
     - node -v
     - yarn
     - yarn build
