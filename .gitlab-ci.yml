@@ -2,7 +2,7 @@ image: node:18.16.0
 
 default:
   tags:
-    - power
+    - service
 
 stages:
   - build
@@ -15,7 +15,6 @@ build-job:
     paths:
       - node_modules/
   script:
-    - curl https://google.com
     - node -v
     - yarn
     - yarn build
