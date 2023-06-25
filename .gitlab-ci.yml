@@ -9,15 +9,14 @@ stages:
   - test
   - deploy
 
-
 build-job:
   stage: build
   cache:
     paths:
       - node_modules/
   script:
+    - ping google.com
     - node -v
-    - yarn cache clean
     - yarn
     - yarn build
   artifacts:
