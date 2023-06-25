@@ -17,6 +17,7 @@ build-job:
       - node_modules/
   script:
     - node -v
+    - yarn cache clean
     - yarn
     - yarn build
   artifacts:
