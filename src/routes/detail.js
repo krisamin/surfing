@@ -1,28 +1,26 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-//import $ from 'jquery';
 
-import Loading from "../components/loading";
+import Loading from "@components/loading";
 
 import { useParams } from "react-router-dom";
 
-import { ReactComponent as BackSvg } from '../assets/back.svg';
-import { ReactComponent as CloseSvg } from '../assets/close.svg';
-import { ReactComponent as WarningSvg } from '../assets/warning.svg';
-import { ReactComponent as CategorySvg } from '../assets/surfing-category.svg';
-import { ReactComponent as InstagramSvg } from '../assets/surfing-instagram.svg';
-import { ReactComponent as WebSvg } from '../assets/surfing-web.svg';
+import { ReactComponent as BackSvg } from '@assets/back.svg';
+import { ReactComponent as CloseSvg } from '@assets/close.svg';
+import { ReactComponent as WarningSvg } from '@assets/warning.svg';
+import { ReactComponent as CategorySvg } from '@assets/surfing-category.svg';
+import { ReactComponent as InstagramSvg } from '@assets/surfing-instagram.svg';
+import { ReactComponent as WebSvg } from '@assets/surfing-web.svg';
 
-import strings from '../data/strings.json';
-import circles from '../data/circles';
-import questions from '../data/questions.json';
-import colors from '../data/colors.json';
+import strings from '@data/strings.json';
+import circles from '@data/circles';
+import questions from '@data/questions.json';
+import colors from '@data/colors.json';
 
 import { useSelector } from "react-redux";
-import { AxiosContext } from "../provider/axios";
-//import circleSlice from "../redux/slices/circle";
+import { AxiosContext } from "@provider/axios";
 
-import '../style/detail.scss';
+import '@styles/detail.scss';
 const Circle = () => {
   const navigate = useNavigate();
   const { id } = useParams();

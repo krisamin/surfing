@@ -2,13 +2,13 @@ import React from "react";
 import $ from 'jquery';
 import { Outlet, useLocation } from "react-router-dom";
 
-import Navbar from "../components/navbar";
-import Footer from "../components/footer";
+import Navbar from "@components/navbar";
+import Footer from "@components/footer";
 
 import { useSelector, useDispatch } from "react-redux";
-import { AxiosContext } from "../provider/axios";
-import userSlice from "../redux/slices/user";
-import circleSlice from "../redux/slices/circle";
+import { AxiosContext } from "@provider/axios";
+import userSlice from "@redux/slices/user";
+import circleSlice from "@redux/slices/circle";
 
 const Root = () => {
   const location = useLocation();

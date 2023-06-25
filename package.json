@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^7.1.0",
     "@fireworks-js/react": "^2.10.2",
     "@reduxjs/toolkit": "^1.9.3",
     "@testing-library/jest-dom": "^5.14.1",
@@ -21,13 +22,12 @@
     "redux-thunk": "^2.4.2",
     "sass": "^1.58.3",
     "serve": "^14.2.0",
-    "universal-cookie": "^4.0.4",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --passWithNoTests",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test --passWithNoTests",
     "eject": "react-scripts eject",
     "web:serve": "serve -s build"
   },

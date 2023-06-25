@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link, useLocation } from "react-router-dom";
 
-import '../style/footer.scss';
+import { ReactComponent as LogoDark } from '@assets/surfing.footer.dark.svg';
+import { ReactComponent as LogoLight } from '@assets/surfing.footer.light.svg';
 
-import { ReactComponent as LogoDark } from '../assets/surfing.footer.dark.svg';
-import { ReactComponent as LogoLight } from '../assets/surfing.footer.light.svg';
-
+import '@styles/footer.scss';
 const Footer = () => {
   const location = useLocation().pathname.split('/')[1];
 

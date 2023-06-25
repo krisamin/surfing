@@ -1,15 +1,14 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import '../style/navbar.scss';
-
-import { ReactComponent as LogoDark } from '../assets/surfing.dark.svg';
-import { ReactComponent as LogoLight } from '../assets/surfing.light.svg';
+import { ReactComponent as LogoDark } from '@assets/surfing.dark.svg';
+import { ReactComponent as LogoLight } from '@assets/surfing.light.svg';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from "../redux/slices/user";
-import circleSlice from "../redux/slices/circle";
+import { logout } from "@redux/slices/user";
+import circleSlice from "@redux/slices/circle";
 
+import '@styles/navbar.scss';
 const Navbar = () => {
   const location = useLocation().pathname.split('/')[1];
   const navigate = useNavigate();

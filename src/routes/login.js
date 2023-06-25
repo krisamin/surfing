@@ -2,14 +2,13 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import $ from 'jquery';
 
-import Loading from "../components/loading";
-
-import '../style/login.scss';
+import Loading from "@components/loading";
 
 import { useSelector, useDispatch } from 'react-redux';
-import { AxiosContext } from "../provider/axios";
-import userSlice from "../redux/slices/user";
+import { AxiosContext } from "@provider/axios";
+import userSlice from "@redux/slices/user";
 
+import '@styles/login.scss';
 const Circle = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();

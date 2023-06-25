@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import { useDispatch } from "react-redux";
-import userSlice, { logout } from "../redux/slices/user";
+import userSlice, { logout } from "@redux/slices/user";
 const AxiosContext = React.createContext();
 const { Provider } = AxiosContext;
 

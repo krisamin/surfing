@@ -2,20 +2,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import $ from 'jquery';
 
-import '../style/index.scss';
+import { ReactComponent as Surfing1 } from '@assets/surfing-1.svg';
+import { ReactComponent as Surfing2 } from '@assets/surfing-2.svg';
+import { ReactComponent as Surfing3 } from '@assets/surfing-3.svg';
+import { ReactComponent as Surfing4 } from '@assets/surfing-4.svg';
+import { ReactComponent as SurfingLogo } from '@assets/surfing.large.svg';
+import { ReactComponent as SurfingBottom } from '@assets/surfing.bottom.svg';
 
-import { ReactComponent as Surfing1 } from '../assets/surfing-1.svg';
-import { ReactComponent as Surfing2 } from '../assets/surfing-2.svg';
-import { ReactComponent as Surfing3 } from '../assets/surfing-3.svg';
-import { ReactComponent as Surfing4 } from '../assets/surfing-4.svg';
-import { ReactComponent as SurfingLogo } from '../assets/surfing.large.svg';
-import { ReactComponent as SurfingBottom } from '../assets/surfing.bottom.svg';
+import { ReactComponent as Icons } from '@assets/icons.svg';
+import { ReactComponent as Wave } from '@assets/wave.svg';
 
-import { ReactComponent as Icons } from '../assets/icons.svg';
-import { ReactComponent as Wave } from '../assets/wave.svg';
+import qna from '@data/qna.json'
 
-import qna from '../data/qna.json'
-
+import '@styles/index.scss';
 const Index = () => {
   const surfingBottom = React.useRef(null);
   const [scale, setScale] = React.useState(null);

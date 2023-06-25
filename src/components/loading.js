@@ -1,7 +1,6 @@
 import React from 'react';
 
-import '../style/loading.scss';
-
+import '@styles/loading.scss';
 const Loading = ({visible}) => {
   return (
     <div id="loading" className={ visible ? "show" : "hide" }>

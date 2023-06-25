@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { apiUrl } from "../../provider/axios";
+import { apiUrl } from "@provider/axios";
 import axios from 'axios';
 
 const initialState = {

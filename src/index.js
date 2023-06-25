@@ -5,18 +5,18 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import './style/style.scss';
+import '@styles/style.scss';
 
-import Root from './routes/root';
-import Index from './routes/index';
-import Circle from './routes/circle';
-import Login from './routes/login';
-import Detail from './routes/detail';
-import Admin from './routes/admin';
+import Root from '@routes/root';
+import Index from '@routes/index';
+import Circle from '@routes/circle';
+import Login from '@routes/login';
+import Detail from '@routes/detail';
+import Admin from '@routes/admin';
 
-import store from './redux/store';
+import store from '@redux/store';
 import { Provider } from 'react-redux';
-import { AxiosProvider } from './provider/axios';
+import { AxiosProvider } from '@provider/axios';
 
 const router = createBrowserRouter([
   {

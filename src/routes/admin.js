@@ -1,18 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-//import $ from 'jquery';
 
-import Loading from "../components/loading";
-
-import "../style/admin.scss";
+import Loading from "@components/loading";
 
 import { useSelector } from "react-redux";
-import { AxiosContext } from "../provider/axios";
+import { AxiosContext } from "@provider/axios";
 
-import circles from "../data/circles";
-import questions from "../data/questions.json";
-import strings from "../data/strings.json";
+import circles from "@data/circles";
+import questions from "@data/questions.json";
+import strings from "@data/strings.json";
 
+import "@styles/admin.scss";
 const Admin = () => {
   const navigate = useNavigate();
   const { authAxios } = React.useContext(AxiosContext);

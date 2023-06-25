@@ -2,24 +2,23 @@ import React from "react";
 import { Link } from "react-router-dom";
 import $ from 'jquery';
 
-import Loading from "../components/loading";
+import Loading from "@components/loading";
 
-import '../style/circle.scss';
+import circles from '@data/circles';
+import strings from '@data/strings.json';
 
-import circles from '../data/circles';
-import strings from '../data/strings.json';
-
-import { ReactComponent as WarningSvg } from '../assets/warning.svg';
+import { ReactComponent as WarningSvg } from '@assets/warning.svg';
 
 import { useDispatch, useSelector } from "react-redux";
-import userSlice from "../redux/slices/user";
-import circleSlice from "../redux/slices/circle";
+import userSlice from "@redux/slices/user";
+import circleSlice from "@redux/slices/circle";
 
-import { AxiosContext } from "../provider/axios";
+import { AxiosContext } from "@provider/axios";
 
 import { Fireworks } from '@fireworks-js/react';
 import Confetti from "react-confetti";
 
+import '@styles/circle.scss';
 const Circle = () => {
   const dispatch = useDispatch();
   const { authAxios } = React.useContext(AxiosContext);
