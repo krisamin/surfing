@@ -1,40 +1,21 @@
-image: node:lts-alpine
+image: node
 
-default:
-  tags:
-    - power
-
-stages:
-  - build
-  - test
-  - deploy
-
-build-job:
+build:
   stage: build
   cache:
     paths:
       - node_modules/
   script:
-    - node -v
-    - yarn
-    - yarn build
+    - yarn install
+    - yarn run build
   artifacts:
     paths:
       - build
 
-test-job:
-  stage: test
-  cache:
-    paths:
-      - node_modules/
-    policy: pull
-  script:
-    - yarn test
-
-pages-job:
+pages:
   stage: deploy
   dependencies: 
-    - build-job
+    - build
   script:
     - rm -rf public
     - cp build/index.html build/404.html
@@ -42,5 +23,3 @@ pages-job:
   artifacts:
     paths:
       - public
-  only:
-    - main
