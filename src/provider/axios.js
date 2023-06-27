@@ -7,7 +7,7 @@ const AxiosContext = React.createContext();
 const { Provider } = AxiosContext;
 
 //const apiUrl = 'https://dev-api-surfing.pentag.kr/';
-const apiUrl = process.env.api_url;
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const AxiosProvider = ({ children }) => {
   const dispatch = useDispatch();
