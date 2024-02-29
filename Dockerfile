@@ -10,7 +10,6 @@ RUN yarn install
 
 COPY . .
 
-RUN yarn add sharp --ignore-engines
-RUN yarn build
+RUN yarn build.server
 
-CMD [ "yarn", "start", "--host", "--no-open" ]
+CMD [ "yarn", "serve" ]
