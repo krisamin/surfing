@@ -13,4 +13,4 @@ COPY . .
 RUN yarn add sharp --ignore-engines
 RUN yarn build
 
-CMD [ "yarn", "start", "--host" ]
+CMD [ "yarn", "start", "--no-open" ]
