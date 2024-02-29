@@ -15,12 +15,12 @@ export const Navbar = component$(() => {
           <div class={[styles.item, loc.url.pathname == "/circle/" ? styles.select : null]} onClick$={() => nav("/circle")}>
             <p>동아리 목록</p>
           </div>
-          <div class={styles.item}>
+          {/* <div class={styles.item}>
             <p>신청 관리</p>
           </div>
           <div class={styles.item} onClick$={() => nav(`https://dimigo.in/auth?client=65dd60220b635e83a1e091cd&redirect=${import.meta.env.PUBLIC_API_URL}/auth`)}>
             <p>로그인</p>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
