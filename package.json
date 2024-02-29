@@ -34,9 +34,13 @@
     "eslint": "^8.56.0",
     "eslint-plugin-qwik": "^1.4.5",
     "prettier": "^3.2.4",
+    "sass": "^1.71.1",
     "typescript": "5.3.3",
     "undici": "*",
     "vite": "^5.0.12",
     "vite-tsconfig-paths": "^4.2.1"
+  },
+  "dependencies": {
+    "sharp": "^0.33.2"
   }
 }

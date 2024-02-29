@@ -1,0 +1,73 @@
+@import "variables";
+
+.navbar {
+  z-index: 1;
+  height: 64px;
+  flex-direction: row;
+  justify-content: center;
+  align-self: stretch;
+
+  &.fill {
+    .logo {
+      background-color: $white;
+    }
+
+    .item p {
+      color: $white;
+    }
+  }
+
+  &.glass {
+    .logo {
+      background-color: $grade-9;
+    }
+
+    .item p {
+      color: $grade-7;
+    }
+  }
+
+  .logo {
+    width: 67px;
+    cursor: pointer;
+
+    -webkit-mask-image: url("/assets/surfing.navbar.svg");
+    mask-image: url("/assets/surfing.navbar.svg");
+    mask-repeat: no-repeat;
+    mask-position: center;
+  }
+
+  .mix {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 36px;
+  }
+
+  .item {
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+
+    p {
+      font-size: 14px;
+      font-weight: 500;
+      opacity: .5;
+    }
+
+    &.select {
+      p {
+        font-weight: 700;
+        opacity: 1;
+      }
+    }
+  }
+
+  .inner {
+    flex: 1;
+    max-width: $max-width;
+    padding: 16px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+  }
+}

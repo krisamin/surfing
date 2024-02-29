@@ -1,17 +1,21 @@
 import { component$, Slot } from "@builder.io/qwik";
-import type { RequestHandler } from "@builder.io/qwik-city";
+import { routeLoader$ } from "@builder.io/qwik-city";
+import { Navbar } from "~/components/navbar";
+import { Footer } from "~/components/footer";
+import type { Circle } from "~/types";
 
-export const onGet: RequestHandler = async ({ cacheControl }) => {
-  // Control caching for this request for best performance and to reduce hosting costs:
-  // https://qwik.builder.io/docs/caching/
-  cacheControl({
-    // Always serve a cached response by default, up to a week stale
-    staleWhileRevalidate: 60 * 60 * 24 * 7,
-    // Max once every 5 seconds, revalidate on the server to get a fresh version of this page
-    maxAge: 5,
-  });
-};
+export const useCircles = routeLoader$(async () => {
+  const response = await fetch(`${import.meta.env.PUBLIC_API_URL}/circle`);
+  const circles = (await response.json()) as Circle[];
+  return circles;
+});
 
 export default component$(() => {
-  return <Slot />;
+  return (
+    <>
+      <Navbar />
+      <Slot />
+      <Footer />
+    </>
+  );
 });

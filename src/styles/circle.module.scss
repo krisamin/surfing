@@ -1,0 +1,44 @@
+@import "variables";
+
+.grid {
+  display: grid;
+  row-gap: 20px;
+  column-gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+
+  @media (max-width: 400px) {
+    grid-template-columns: 1fr;
+  }
+
+  .item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 28px;
+    background-color: rgba($grade-2, .2);
+    border-radius: 16px;
+    border: $grade-2 1px solid;
+
+    .info {
+      gap: 10px;
+
+      p:first-child {
+        font-size: 24px;
+        font-weight: 600;
+        color: $grade-8;
+      }
+    
+      p:last-child {
+        font-size: 14px;
+        font-weight: 500;
+        color: $grade-4;
+      }
+    }
+
+    .logo {
+      background-color: $white;
+      border-radius: 50%;
+    }
+  }
+}
