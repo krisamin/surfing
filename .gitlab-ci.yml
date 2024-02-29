@@ -1,0 +1,42 @@
+default:
+  tags:
+    - service
+
+stages:
+  - check
+  - build
+  - deploy
+
+check-job:
+  stage: check
+  script:
+    - docker info
+
+build-job:
+  stage: build
+  before_script:
+    - cp ${ENV_FILE} .env
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker build -t $CI_REGISTRY_IMAGE .
+    - docker push $CI_REGISTRY_IMAGE
+
+deploy-job:
+  stage: deploy
+  script:
+    - docker rm -f $CI_PROJECT_PATH_SLUG
+    - >
+      docker create
+      --name $CI_PROJECT_PATH_SLUG
+      --restart always
+      --label traefik.enable=true
+      --label traefik.http.routers.$CI_PROJECT_PATH_SLUG.entrypoints=https
+      --label traefik.http.routers.$CI_PROJECT_PATH_SLUG.rule='Host(`surfing.dimigo.in`)'
+      --label traefik.http.routers.$CI_PROJECT_PATH_SLUG.tls=true
+      --label traefik.http.routers.$CI_PROJECT_PATH_SLUG.tls.certresolver=cloudflare
+      --label traefik.http.routers.$CI_PROJECT_PATH_SLUG.service=$CI_PROJECT_PATH_SLUG
+      --label traefik.http.services.$CI_PROJECT_PATH_SLUG.loadbalancer.server.port=5173
+      --network proxy
+      $CI_REGISTRY_IMAGE:latest
+    - docker network connect surfing-production $CI_PROJECT_PATH_SLUG
+    - docker start $CI_PROJECT_PATH_SLUG
