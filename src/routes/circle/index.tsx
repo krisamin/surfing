@@ -35,7 +35,7 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-  title: "Surfing.",
+  title: "surfing.",
   meta: [
     {
       name: "description",
