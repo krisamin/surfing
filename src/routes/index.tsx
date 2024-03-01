@@ -43,7 +43,7 @@ export default component$(() => {
           </div>
           <div class={styles.line} />
           <p class={styles.content}>
-            surfing은 <span>제 1회 한국디지털미디어고등학교 동아리 전시회</span>
+            surfing은 <span>한국디지털미디어고등학교 동아리 전시회</span>
             입니다. surfing은 동아리 간의 활동 결과를 공유하여{" "}
             <span>
               보다 건전한 동아리 문화를 조성하고 이를 기념하기 위해
