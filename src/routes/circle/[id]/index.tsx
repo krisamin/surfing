@@ -224,12 +224,15 @@ export default component$(() => {
   );
 });
 
-export const head: DocumentHead = {
-  title: "surfing.",
-  meta: [
-    {
-      name: "description",
-      content: "한국디지털미디어고등학교 동아리 전시회",
-    },
-  ],
-};
+export const head: DocumentHead = (requestEvent) => {
+  const circle = requestEvent.resolveValue(useCircle);
+  return {
+    title: `${circle.name} - surfing.`,
+    meta: [
+      {
+        name: "description",
+        content: circle.slogun || "한국디지털미디어고등학교 동아리 전시회",
+      },
+    ],
+  };
+}
