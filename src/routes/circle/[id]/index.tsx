@@ -233,6 +233,10 @@ export const head: DocumentHead = (requestEvent) => {
         name: "description",
         content: circle.slogun || "한국디지털미디어고등학교 동아리 전시회",
       },
+      {
+        name: "og:description",
+        content: circle.slogun || "한국디지털미디어고등학교 동아리 전시회",
+      },
     ],
   };
 }
