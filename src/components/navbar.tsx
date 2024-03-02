@@ -32,7 +32,7 @@ export const Navbar = component$(() => {
             <p>신청 관리</p>
           </Link>
           {token.value ? (
-            <Link class={styles.item} href="/auth">
+            <Link class={styles.item} href="/auth" prefetch={false}>
               <p>{token.value.user.name} 님</p>
             </Link>
           ) : (

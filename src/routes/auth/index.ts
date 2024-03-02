@@ -1,6 +1,6 @@
 import type { RequestHandler } from '@builder.io/qwik-city';
  
-export const onGet: RequestHandler = ({ query, cookie, redirect }) => {
+export const onGet: RequestHandler = ({ query, cookie }) => {
   const [ access, refresh ] = [query.get("access"), query.get("refresh")];
 
   if(!access || !refresh) {
@@ -12,5 +12,5 @@ export const onGet: RequestHandler = ({ query, cookie, redirect }) => {
     });
   }
 
-  throw redirect(302, '/');
+  // throw redirect(302, '/');
 };
