@@ -1,4 +1,4 @@
-import { component$, useSignal } from "@builder.io/qwik";
+import { component$, useSignal, useStore } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import { Link, routeLoader$ } from "@builder.io/qwik-city";
 import { useStatus, useCircles, useToken } from "../../layout";
@@ -20,12 +20,26 @@ export const useCircle = routeLoader$(async (requestEvent) => {
   return circle;
 });
 
+const questions = [
+  "지원하게 된 동기를 알려주세요.",
+  "하고 싶은 일과 앞으로의 목표를 알려주세요.",
+  "자기계발을 위해 내가 한 노력을 알려주세요.",
+  "자신의 장단점을 성격과 생활태도를 중심으로 알려주세요.",
+];
+
 export default component$(() => {
   const status = useStatus();
   const circle = useCircle();
   const token = useToken();
 
   const show = useSignal(false);
+  const answer = useStore({
+    question1: "",
+    question2: "",
+    question3: "",
+    question4: "",
+  });
+  const canSubmit = Object.values(answer).every((value) => value.length > 0 && value.length <= 300);
 
   if (circle.value.errorMessage) {
     return <p>{circle.value.errorMessage}</p>;
@@ -36,9 +50,12 @@ export default component$(() => {
         <div class={styles.window}>
           <div class={styles.header}>
             <div class={styles.left}>
-              <div class={styles.close} onClick$={() => {
-                show.value = false;
-              }} />
+              <div
+                class={styles.close}
+                onClick$={() => {
+                  show.value = false;
+                }}
+              />
               <div class={styles.circle}>
                 <img
                   width={32}
@@ -59,43 +76,24 @@ export default component$(() => {
             </div>
           </div>
           <div class={styles.content}>
-            <div class={styles.item}>
-              <p class={styles.title}>지원하게 된 동기를 알려주세요.</p>
-              <textarea
-                class={styles.input}
-                placeholder="최대 300자로 작성해주세요."
-              />
-            </div>
-            <div class={styles.item}>
-              <p class={styles.title}>
-                하고 싶은 일과 앞으로의 목표를 알려주세요.
-              </p>
-              <textarea
-                class={styles.input}
-                placeholder="최대 300자로 작성해주세요."
-              />
-            </div>
-            <div class={styles.item}>
-              <p class={styles.title}>
-                자기계발을 위해 내가 한 노력을 알려주세요.
-              </p>
-              <textarea
-                class={styles.input}
-                placeholder="최대 300자로 작성해주세요."
-              />
-            </div>
-            <div class={styles.item}>
-              <p class={styles.title}>
-                자신의 장단점을 성격과 생활태도를 중심으로 알려주세요.
-              </p>
-              <textarea
-                class={styles.input}
-                placeholder="최대 300자로 작성해주세요."
-              />
-            </div>
+            {questions.map((question, index) => (
+              <div key={index} class={styles.item}>
+                <p class={styles.title}>{question}</p>
+                <textarea
+                  class={styles.input}
+                  placeholder="최대 300자로 작성해주세요."
+                  onInput$={(_, el) =>
+                    (answer[`question${index + 1}` as keyof typeof answer] = el.value)
+                  }
+                />
+                <p class={styles.length}>
+                  {answer[`question${index + 1}` as keyof typeof answer].length} / 300
+                </p>
+              </div>
+            ))}
           </div>
           <div class={styles.footer}>
-            <div class={styles.submit}>
+            <div class={[styles.submit, !canSubmit && styles.disabled]}>
               <p>제출하기</p>
             </div>
             <div class={styles.warning}>
@@ -147,10 +145,12 @@ export default component$(() => {
               status.value !== "SUBMIT" && styles.disabled,
             ]}
             onClick$={() => {
-              show.value = true;
+              if (status.value === "SUBMIT") {
+                show.value = true;
+              }
             }}
           >
-            <p>지원하기 {show.value}</p>
+            <p>지원하기</p>
           </div>
         )}
       </div>
