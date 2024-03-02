@@ -80,7 +80,7 @@ export const head: DocumentHead = {
       content: "한국디지털미디어고등학교 동아리 전시회",
     },
     {
-      name: "og:description",
+      property: "og:description",
       content: "한국디지털미디어고등학교 동아리 전시회",
     },
   ],
