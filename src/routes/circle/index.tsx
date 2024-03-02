@@ -15,7 +15,7 @@ export default component$(() => {
       </div>
       <div class={styles.grid}>
         {circles.value.map((circle) => (
-          <Link class={styles.item} href={circle._id} key={circle._id}>
+          <Link key={circle._id} class={styles.item} href={circle._id} prefetch>
             <div class={styles.info}>
               <p>{circle.name}</p>
               <p>{circle.category}</p>

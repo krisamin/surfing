@@ -1,20 +1,19 @@
 import { component$ } from '@builder.io/qwik';
-import { useLocation, useNavigate } from '@builder.io/qwik-city';
+import { Link, useLocation } from '@builder.io/qwik-city';
 
 import styles from '~/styles/navbar.module.scss';
  
 export const Navbar = component$(() => {
-  const nav = useNavigate();
   const loc = useLocation();
 
   return (
     <div class={[styles.navbar, loc.url.pathname == "/" ? styles.fill : styles.glass]}>
       <div class={styles.inner}>
-        <div class={styles.logo} onClick$={() => nav("/")} />
+        <Link class={styles.logo} href="/" prefetch />
         <div class={styles.mix}>
-          <div class={[styles.item, loc.url.pathname == "/circle/" ? styles.select : null]} onClick$={() => nav("/circle")}>
+          <Link class={[styles.item, loc.url.pathname == "/circle/" ? styles.select : null]} href="/circle" prefetch>
             <p>동아리 목록</p>
-          </div>
+          </Link>
           {/* <div class={styles.item}>
             <p>신청 관리</p>
           </div>
