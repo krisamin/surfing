@@ -1,9 +1,175 @@
 @import "variables";
 
+.hover {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba($black, .5);
+  z-index: 1000;
+  padding: 96px 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  
+  &.hidden {
+    display: none;
+  }
+
+  .window {
+    width: calc(100% - 72px - 32px);
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    padding: 32px 36px;
+    background-color: $grade-1;
+    border-radius: 24px;
+    margin: auto;
+
+    .warning {
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+
+      .icon {
+        width: 16px;
+        height: 16px;
+        background-color: $grade-4;
+
+        -webkit-mask-image: url("/assets/warning.svg");
+        mask-image: url("/assets/warning.svg");
+        mask-repeat: no-repeat;
+        mask-position: center;
+      }
+
+      p {
+        font-size: 14px;
+        font-weight: 500;
+        color: $grade-4;
+      }
+    }
+
+    .header {
+      .left {
+        flex-direction: row;
+        align-items: center;
+        gap: 24px;
+
+        .close {
+          width: 24px;
+          height: 24px;
+          background-color: $grade-3;
+          cursor: pointer;
+          padding: 12px;
+          margin: -12px;
+
+          -webkit-mask-image: url("/assets/close.svg");
+          mask-image: url("/assets/close.svg");
+          mask-repeat: no-repeat;
+          mask-position: center;
+        }
+
+        .circle {
+          flex-direction: row;
+          align-items: center;
+          gap: 16px;
+
+          .logo {
+            background-color: $white;
+            border-radius: 50%;
+          }
+
+          .info {
+            flex-direction: row;
+            align-items: center;
+            gap: 8px;
+
+            .name {
+              font-size: 20px;
+              font-weight: 700;
+              color: $grade-8;
+            }
+
+            .label {
+              font-size: 16px;
+              font-weight: 500;
+              color: $grade-4;
+            }
+          }
+        }
+      }
+    }
+
+    .content {
+      gap: 72px;
+
+      .item {
+        gap: 20px;
+
+        .title {
+          font-size: 24px;
+          font-weight: 600;
+          color: $grade-8;
+        }
+
+        .input {
+          height: 160px;
+          padding: 24px;
+          background-color: rgba($grade-2, .12);
+          border-radius: 16px;
+          border: $grade-2 1px solid;
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 1.8;
+          color: $grade-8;
+          outline: none;
+          resize: none;
+
+          &::placeholder {
+            color: $grade-4;
+          }
+        }
+      }
+    }
+
+    .footer {
+      align-items: center;
+      gap: 20px;
+
+      .submit {
+        align-self: stretch;
+        align-items: center;
+        padding: 16px;
+        background-color: $grade-5;
+        border-radius: 36px;
+        cursor: pointer;
+
+        p {
+          font-size: 14px;
+          font-weight: 500;
+          color: $white;
+        }
+
+        &.disabled {
+          background-color: $grade-3;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}
+
 .header {
   flex-direction: row;
   align-items: center;
-  gap: 28px;
+  justify-content: space-between;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
   .back {
     width: 20px;
@@ -19,73 +185,101 @@
     mask-image: url("/assets/back.svg");
   }
 
-  .logo {
-    background-color: $white;
-    border-radius: 50%;
-  }
+  .content {
+    flex-direction: row;
+    align-items: center;
+    gap: 28px;
 
-  .info {
-    gap: 12px;
+    .logo {
+      background-color: $white;
+      border-radius: 50%;
+    }
 
-    .name {
-      flex-direction: row;
-      align-items: center;
-      gap: 28px;
+    .info {
+      gap: 12px;
 
-      p { 
-        font-size: 40px;
-        font-weight: 700;
-        color: $grade-8;
+      .name {
+        flex-direction: row;
+        align-items: center;
+        gap: 28px;
+
+        p {
+          font-size: 40px;
+          font-weight: 700;
+          color: $grade-8;
+        }
+
+        .link {
+          flex-direction: row;
+          gap: 14px;
+
+          .icon {
+            width: 20px;
+            height: 20px;
+            background-color: $grade-4;
+            padding: 6px;
+            margin: -6px;
+
+            mask-repeat: no-repeat;
+            mask-position: center;
+
+            &.instagram {
+              -webkit-mask-image: url("/assets/instagram.svg");
+              mask-image: url("/assets/instagram.svg");
+            }
+
+            &.website {
+              -webkit-mask-image: url("/assets/website.svg");
+              mask-image: url("/assets/website.svg");
+            }
+          }
+        }
       }
 
-      .link {
+      .category {
         flex-direction: row;
-        gap: 14px;
+        align-items: center;
+        gap: 6px;
 
         .icon {
           width: 20px;
           height: 20px;
           background-color: $grade-4;
-          padding: 6px;
-          margin: -6px;
 
+          -webkit-mask-image: url("/assets/category.svg");
+          mask-image: url("/assets/category.svg");
           mask-repeat: no-repeat;
           mask-position: center;
+        }
 
-          &.instagram {
-            -webkit-mask-image: url("/assets/instagram.svg");
-            mask-image: url("/assets/instagram.svg");
-          }
-
-          &.website {
-            -webkit-mask-image: url("/assets/website.svg");
-            mask-image: url("/assets/website.svg");
-          }
+        p {
+          font-size: 16px;
+          font-weight: 500;
+          color: $grade-4;
         }
       }
     }
+  }
 
-    .category {
-      flex-direction: row;
-      align-items: center;
-      gap: 6px;
+  .submit {
+    padding: 12px 24px;
+    background-color: $grade-5;
+    border-radius: 36px;
+    cursor: pointer;
 
-      .icon {
-        width: 20px;
-        height: 20px;
-        background-color: $grade-4;
+    @media (max-width: 600px) {
+      align-self: flex-end;
+    }
 
-        -webkit-mask-image: url("/assets/category.svg");
-        mask-image: url("/assets/category.svg");
-        mask-repeat: no-repeat;
-        mask-position: center;
-      }
+    p {
+      font-size: 14px;
+      font-weight: 500;
+      color: $white;
+    }
 
-      p {
-        font-size: 16px;
-        font-weight: 500;
-        color: $grade-4;
-      }
+    &.disabled {
+      background-color: $grade-3;
+      cursor: not-allowed;
     }
   }
 }
