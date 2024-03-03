@@ -2,7 +2,7 @@ import { component$, Slot } from "@builder.io/qwik";
 import { routeLoader$ } from "@builder.io/qwik-city";
 import { Navbar } from "~/components/navbar";
 import { Footer } from "~/components/footer";
-import type { Circle } from "~/types";
+import type { Circle, Submit } from "~/types";
 import { jwtDecode } from "jwt-decode";
 
 export const useStatus = routeLoader$(async () => {
@@ -18,19 +18,51 @@ export const useCircles = routeLoader$(async () => {
 });
 
 export const useToken = routeLoader$(async (requestEvent) => {
+  console.log("token");
   const token = requestEvent.cookie.get("token");
   if (token) {
     const [access, refresh] = token.value.split(" ");
 
     const user = jwtDecode<{
       name: string;
+      admin: string;
       exp: number;
     }>(access);
+
+    if(user.exp * 1000 < Date.now()) {
+      const response = await fetch(`${import.meta.env.PUBLIC_API_URL}/auth/refresh`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ token: refresh }),
+      });
+      const newToken = await response.json();
+      requestEvent.cookie.set("token", [newToken.access, newToken.refresh].join(" "), {
+        httpOnly: true,
+        path: "/",
+      });
+    }
 
     return { access, refresh, user };
   } else {
     return null;
   }
+});
+
+export const useMy = routeLoader$(async (requestEvent) => {
+  const token = await requestEvent.resolveValue(useToken);
+  if (!token) {
+    return [];
+  }
+
+  const response = await fetch(`${import.meta.env.PUBLIC_API_URL}/circle/my`, {
+    headers: {
+      Authorization: `Bearer ${token.access}`,
+    },
+  });
+  const my = await response.json() as Submit[]
+  return my;
 });
 
 export default component$(() => {

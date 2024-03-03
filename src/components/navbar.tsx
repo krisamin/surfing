@@ -28,9 +28,17 @@ export const Navbar = component$(() => {
           >
             <p>동아리 목록</p>
           </Link>
-          <Link class={styles.item}>
-            <p>신청 관리</p>
-          </Link>
+          {token.value && token.value.user.admin && (
+            <Link
+              class={[
+                styles.item,
+                loc.url.pathname == "/admin/" ? styles.select : null,
+              ]}
+              href="/admin"
+            >
+              <p>신청 관리</p>
+            </Link>
+          )}
           {token.value ? (
             <Link class={styles.item} href="/auth" prefetch={false}>
               <p>{token.value.user.name} 님</p>
