@@ -14,8 +14,10 @@ export default component$(() => {
   return (
     <div id="container">
       <div id="header">
-        <p>동아리 목록</p>
-        <p>surfing에서 전시하는 동아리 목록입니다.</p>
+        <div id="left">
+          <p>동아리 목록</p>
+          <p>surfing에서 전시하는 동아리 목록입니다.</p>
+        </div>
       </div>
       {token.value && (
         <div class={styles.my}>

@@ -8,7 +8,8 @@
   letter-spacing: -0.02rem;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   background-color: $grade-1;
 }
@@ -31,18 +32,52 @@ a {
 }
 
 #header {
-  gap: 12px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 
-  p:first-child {
-    font-size: 40px;
-    font-weight: 700;
-    color: $grade-8;
+  #left {
+    gap: 12px;
+
+    p:first-child {
+      font-size: 40px;
+      font-weight: 700;
+      color: $grade-8;
+    }
+
+    p:last-child {
+      font-size: 16px;
+      font-weight: 500;
+      color: $grade-4;
+    }
   }
 
-  p:last-child {
-    font-size: 16px;
-    font-weight: 500;
-    color: $grade-4;
+  #right {
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+
+    #logo {
+      background-color: $white;
+      border-radius: 50%;
+    }
+    
+    #info {
+      align-items: flex-end;
+      gap: 10px;
+      
+      p:first-child {
+        font-size: 24px;
+        font-weight: 600;
+        color: $grade-8;
+      }
+
+      p:last-child {
+        font-size: 14px;
+        font-weight: 500;
+        color: $grade-4;
+      }
+    }
   }
 }
 
@@ -50,6 +85,6 @@ a {
   display: inline-flex;
   width: calc(100% - 32px);
   max-width: $max-width;
-  gap: 64px;
+  gap: 48px;
   padding: 80px 16px 160px 16px;
 }
