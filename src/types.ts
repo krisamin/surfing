@@ -10,6 +10,7 @@ export interface Circle {
   video: string;
   instagram: string;
   website: string;
+  image: string[];
 }
 
 export interface User {

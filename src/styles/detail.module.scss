@@ -376,3 +376,31 @@
     }
   }
 }
+
+.image {
+  margin-top: 56px;
+  gap: 20px;
+
+  .title {
+    font-size: 16px;
+    font-weight: 500;
+    color: $grade-3;
+  }
+
+  .scroll {
+    display: box;
+    overflow-x: auto;
+
+    .list {
+      flex-direction: row;
+      gap: 24px;
+      margin-bottom: 20px;
+      
+      img {
+        object-fit: cover;
+        border-radius: 16px;
+        min-width: 400px;
+      }
+    }
+  }
+}

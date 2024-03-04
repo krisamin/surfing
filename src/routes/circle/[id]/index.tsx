@@ -66,7 +66,9 @@ export default component$(() => {
   const circle = useCircle();
   const token = useToken();
   const my = useMy();
-  const submit = my.value.find((submit) => submit.circle._id === circle.value._id);
+  const submit = my.value.find(
+    (submit) => submit.circle._id === circle.value._id
+  );
 
   const show = useSignal(false);
   const answer = useStore({
@@ -209,15 +211,24 @@ export default component$(() => {
           <div
             class={[
               styles.submit,
-              (status.value !== "SUBMIT" || submit || my.value.length === 3) && styles.disabled,
+              (status.value !== "SUBMIT" || submit || my.value.length === 3) &&
+                styles.disabled,
             ]}
             onClick$={() => {
-              if (!(status.value !== "SUBMIT" || submit || my.value.length === 3)) {
+              if (
+                !(status.value !== "SUBMIT" || submit || my.value.length === 3)
+              ) {
                 show.value = true;
               }
             }}
           >
-            <p>{submit ? "지원완료" : my.value.length === 3 ? "지원 횟수 초과" : "지원하기"}</p>
+            <p>
+              {submit
+                ? "지원완료"
+                : my.value.length === 3
+                  ? "지원 횟수 초과"
+                  : "지원하기"}
+            </p>
           </div>
         )}
       </div>
@@ -287,6 +298,24 @@ export default component$(() => {
           )}
         </div>
       </div>
+      {circle.value.image && circle.value.image.length > 0 && (
+        <div class={styles.image}>
+          <p class={styles.title}>동아리 갤러리</p>
+          <div class={styles.scroll}>
+            <div class={styles.list}>
+              {circle.value.image.map((image, index) => (
+                <img
+                  key={index}
+                  width={400}
+                  height={225}
+                  crossOrigin="anonymous"
+                  src={`${import.meta.env.PUBLIC_API_URL}/assets/${image}`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 });
