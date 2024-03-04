@@ -27,10 +27,7 @@ export default component$(() => {
           <div class={styles.list}>
             {[0, 1, 2].map((index) => {
               const submit = my.value[index] as Submit | null;
-              const circle = submit
-                ? circles.value.find((circle) => circle._id === submit.circle)
-                : null;
-              if (submit && circle) {
+              if (submit) {
                 return (
                   <div key={index} class={styles.item}>
                     <img
@@ -38,10 +35,10 @@ export default component$(() => {
                       height={90}
                       class={styles.logo}
                       crossOrigin="anonymous"
-                      src={`${import.meta.env.PUBLIC_API_URL}/assets/${circle.logo}`}
+                      src={`${import.meta.env.PUBLIC_API_URL}/assets/${submit.circle.logo}`}
                     />
                     <div class={styles.info}>
-                      <p class={styles.name}>{circle.name}</p>
+                      <p class={styles.name}>{submit.circle.name}</p>
                       <p class={styles.status}>
                         {submitStatusString[submit.status]}
                       </p>

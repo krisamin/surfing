@@ -1,1 +1,83 @@
 @import "variables";
+
+.container {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 20px;
+
+  .sidebar {
+    width: 360px;
+    gap: 20px;
+
+    .item {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      padding: 24px 28px;
+      background-color: rgba($grade-2, .2);
+      border-radius: 16px;
+      border: $grade-2 1px solid;
+
+      &.active {
+        background-color: rgba($grade-4, .2);
+        border: $grade-4 1px solid;
+      }
+
+      p:first-child {
+        font-size: 24px;
+        font-weight: 600;
+        color: $grade-8;
+      }
+
+      p:last-child {
+        font-size: 14px;
+        font-weight: 500;
+        color: $grade-4;
+      }
+    }
+  }
+
+  .content {
+    flex: 1;
+    gap: 28px;
+    padding: 28px 32px;
+    background-color: rgba($grade-2, .2);
+    border-radius: 16px;
+    border: $grade-2 1px solid;
+
+    .title {
+      font-size: 14px;
+      font-weight: 500;
+      color: $grade-3;
+    }
+
+    .list {
+      gap: 72px;
+
+      .item {
+        gap: 12px;
+
+        .key {
+          font-size: 20px;
+          font-weight: 600;
+          color: $grade-8;
+        }
+        
+        .value {
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 1.7;
+          color: $grade-6;
+        }
+
+        .length {
+          align-self: flex-end;
+          font-size: 14px;
+          font-weight: 500;
+          color: $grade-4;
+        }
+      }
+    }
+  }
+}

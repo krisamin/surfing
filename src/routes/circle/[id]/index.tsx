@@ -1,9 +1,42 @@
 import { component$, useSignal, useStore } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
-import { Link, routeLoader$ } from "@builder.io/qwik-city";
-import { useStatus, useCircles, useToken } from "../../layout";
+import { Link, routeAction$, routeLoader$ } from "@builder.io/qwik-city";
+import { useStatus, useCircles, useToken, useMy } from "../../layout";
 
 import styles from "~/styles/detail.module.scss";
+
+export const useSubmit = routeAction$(async (data) => {
+  const response = await fetch(
+    `${import.meta.env.PUBLIC_API_URL}/circle/submit`,
+    {
+      headers: {
+        Authorization: `Bearer ${data.access}`,
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({ ...data }),
+    }
+  );
+  const result = await response.json();
+
+  if (response.ok) {
+    return {
+      success: true,
+    };
+  } else {
+    if (response.status === 401) {
+      return {
+        success: false,
+        retry: true,
+      };
+    }
+    return {
+      success: false,
+      retry: false,
+      message: result.message,
+    };
+  }
+});
 
 export const useCircle = routeLoader$(async (requestEvent) => {
   const circles = await requestEvent.resolveValue(useCircles);
@@ -20,7 +53,7 @@ export const useCircle = routeLoader$(async (requestEvent) => {
   return circle;
 });
 
-const questions = [
+export const questions = [
   "지원하게 된 동기를 알려주세요.",
   "하고 싶은 일과 앞으로의 목표를 알려주세요.",
   "자기계발을 위해 내가 한 노력을 알려주세요.",
@@ -28,9 +61,12 @@ const questions = [
 ];
 
 export default component$(() => {
+  const action = useSubmit();
   const status = useStatus();
   const circle = useCircle();
   const token = useToken();
+  const my = useMy();
+  const submit = my.value.find((submit) => submit.circle._id === circle.value._id);
 
   const show = useSignal(false);
   const answer = useStore({
@@ -39,7 +75,9 @@ export default component$(() => {
     question3: "",
     question4: "",
   });
-  const canSubmit = Object.values(answer).every((value) => value.length > 0 && value.length <= 300);
+  const canSubmit = Object.values(answer).every(
+    (value) => value.length > 0 && value.length <= 300
+  );
 
   if (circle.value.errorMessage) {
     return <p>{circle.value.errorMessage}</p>;
@@ -83,24 +121,53 @@ export default component$(() => {
                   class={styles.input}
                   placeholder="최대 300자로 작성해주세요."
                   onInput$={(_, el) =>
-                    (answer[`question${index + 1}` as keyof typeof answer] = el.value)
+                    (answer[`question${index + 1}` as keyof typeof answer] =
+                      el.value)
                   }
                 />
                 <p class={styles.length}>
-                  {answer[`question${index + 1}` as keyof typeof answer].length} / 300
+                  {answer[`question${index + 1}` as keyof typeof answer].length}{" "}
+                  / 300
                 </p>
               </div>
             ))}
           </div>
-          <div class={styles.footer}>
-            <div class={[styles.submit, !canSubmit && styles.disabled]}>
-              <p>제출하기</p>
+          {token.value && (
+            <div class={styles.footer}>
+              <div
+                class={[styles.submit, !canSubmit && styles.disabled]}
+                onClick$={async () => {
+                  if (!canSubmit) return;
+                  const { value } = await action.submit({
+                    access: token.value.access,
+                    circle: circle.value._id,
+                    ...answer,
+                  });
+
+                  if (value.success) {
+                    alert("제출하였습니다.");
+                    show.value = false;
+                    answer.question1 = "";
+                    answer.question2 = "";
+                    answer.question3 = "";
+                    answer.question4 = "";
+                  } else {
+                    if (value.retry) {
+                      alert("다시 시도해주세요.");
+                    } else {
+                      alert(value.message);
+                    }
+                  }
+                }}
+              >
+                <p>제출하기</p>
+              </div>
+              <div class={styles.warning}>
+                <div class={styles.icon} />
+                <p>제출하시면 내용을 변경할 수 없습니다</p>
+              </div>
             </div>
-            <div class={styles.warning}>
-              <div class={styles.icon} />
-              <p>제출하시면 내용을 변경할 수 없습니다</p>
-            </div>
-          </div>
+          )}
         </div>
       </div>
       <div class={styles.header}>
@@ -142,15 +209,15 @@ export default component$(() => {
           <div
             class={[
               styles.submit,
-              status.value !== "SUBMIT" && styles.disabled,
+              (status.value !== "SUBMIT" || submit || my.value.length === 3) && styles.disabled,
             ]}
             onClick$={() => {
-              if (status.value === "SUBMIT") {
+              if (!(status.value !== "SUBMIT" || submit || my.value.length === 3)) {
                 show.value = true;
               }
             }}
           >
-            <p>지원하기</p>
+            <p>{submit ? "지원완료" : my.value.length === 3 ? "지원 횟수 초과" : "지원하기"}</p>
           </div>
         )}
       </div>
@@ -239,4 +306,4 @@ export const head: DocumentHead = (requestEvent) => {
       },
     ],
   };
-}
+};

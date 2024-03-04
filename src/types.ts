@@ -12,6 +12,15 @@ export interface Circle {
   website: string;
 }
 
+export interface User {
+  _id: string;
+  email: string;
+  name: string;
+  grade: number;
+  class: number;
+  number: number;
+}
+
 export type SubmitStatusType =
   | "SUBMIT"
   | "FIRST"
@@ -29,7 +38,8 @@ export const submitStatusString = {
 };
 export interface Submit {
   _id: string;
-  circle: string;
+  circle: Circle;
+  user: User;
   question1: string;
   question2: string;
   question3: string;

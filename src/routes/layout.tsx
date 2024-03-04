@@ -18,7 +18,6 @@ export const useCircles = routeLoader$(async () => {
 });
 
 export const useToken = routeLoader$(async (requestEvent) => {
-  console.log("token");
   const token = requestEvent.cookie.get("token");
   if (token) {
     const [access, refresh] = token.value.split(" ");
@@ -63,6 +62,21 @@ export const useMy = routeLoader$(async (requestEvent) => {
   });
   const my = await response.json() as Submit[]
   return my;
+});
+
+export const useAdmin = routeLoader$(async (requestEvent) => {
+  const token = await requestEvent.resolveValue(useToken);
+  if (!token) {
+    return [];
+  }
+
+  const response = await fetch(`${import.meta.env.PUBLIC_API_URL}/circle/admin`, {
+    headers: {
+      Authorization: `Bearer ${token.access}`,
+    },
+  });
+  const admin = await response.json() as Submit[]
+  return admin;
 });
 
 export default component$(() => {
