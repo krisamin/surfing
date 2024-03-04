@@ -1,15 +1,49 @@
 import { component$ } from "@builder.io/qwik";
-import { Link, type DocumentHead } from "@builder.io/qwik-city";
+import { Link, type DocumentHead, routeAction$ } from "@builder.io/qwik-city";
 import { useCircles, useMy, useToken } from "../layout";
 import type { Submit } from "~/types";
 import { submitStatusString } from "~/types";
 
 import styles from "~/styles/circle.module.scss";
 
+export const useFinal = routeAction$(async (data) => {
+  const response = await fetch(
+    `${import.meta.env.PUBLIC_API_URL}/circle/final`,
+    {
+      headers: {
+        Authorization: `Bearer ${data.access}`,
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({ ...data }),
+    }
+  );
+  const result = await response.json();
+
+  if (response.ok) {
+    return {
+      success: true,
+    };
+  } else {
+    if (response.status === 401) {
+      return {
+        success: false,
+        retry: true,
+      };
+    }
+    return {
+      success: false,
+      retry: false,
+      message: result.message,
+    };
+  }
+});
+
 export default component$(() => {
   const token = useToken();
   const circles = useCircles();
   const my = useMy();
+  const final = useFinal();
 
   return (
     <div id="container">
@@ -29,7 +63,30 @@ export default component$(() => {
               const submit = my.value[index] as Submit | null;
               if (submit) {
                 return (
-                  <div key={index} class={styles.item}>
+                  <div
+                    key={index}
+                    class={[styles.item, submit.status === "SECOND" && styles.pointer]}
+                    onClick$={async () => {
+                      if (submit.status === "SECOND") {
+                        if (confirm(`${submit.circle.name} 동아리로 최종 선택을 하시겠습니까?`)) {
+                          const { value } = await final.submit({
+                            access: token.value.access,
+                            submit: submit._id,
+                          });
+
+                          if (value.success) {
+                            alert("최종 선택 하였습니다.");
+                          } else {
+                            if (value.retry) {
+                              alert("다시 시도해주세요.");
+                            } else {
+                              alert(value.message);
+                            }
+                          }
+                        }
+                      }
+                    }}
+                  >
                     <img
                       width={90}
                       height={90}

@@ -37,6 +37,10 @@
       border-radius: 16px;
       border: $grade-2 1px solid;
 
+      &.pointer {
+        cursor: pointer;
+      }
+
       .dummy {
         width: 90px;
         height: 90px;

@@ -1,18 +1,45 @@
 import { component$, useStore } from "@builder.io/qwik";
-import type { DocumentHead } from "@builder.io/qwik-city";
-import { useAdmin, useCircles, useToken } from "../layout";
+import { routeAction$, type DocumentHead } from "@builder.io/qwik-city";
+import { useAdmin, useCircles, useStatus, useToken } from "../layout";
 import { questions } from "../circle/[id]";
 
 import styles from "~/styles/admin.module.scss";
 import { submitStatusString } from "~/types";
 
+export const useFirst = routeAction$(async (data) => {
+  await fetch(`${import.meta.env.PUBLIC_API_URL}/circle/first`, {
+    headers: {
+      Authorization: `Bearer ${data.access}`,
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify({ ...data }),
+  });
+});
+
+export const useSecond = routeAction$(async (data) => {
+  await fetch(`${import.meta.env.PUBLIC_API_URL}/circle/second`, {
+    headers: {
+      Authorization: `Bearer ${data.access}`,
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify({ ...data }),
+  });
+});
+
 export default component$(() => {
+  const status = useStatus();
   const circles = useCircles();
   const token = useToken();
   const admin = useAdmin();
 
+  const first = useFirst();
+  const second = useSecond();
+
   const view = useStore({
     submit: "",
+    status: "",
     question1: "",
     question2: "",
     question3: "",
@@ -23,7 +50,7 @@ export default component$(() => {
     (circle) => circle._id === token.value?.user.admin
   );
 
-  if (!circle) {
+  if (!circle || !token.value) {
     return <p>권한이 없습니다</p>;
   }
   return (
@@ -59,6 +86,7 @@ export default component$(() => {
                   return;
                 }
                 view.submit = submit._id;
+                view.status = submit.status;
                 view.question1 = submit.question1;
                 view.question2 = submit.question2;
                 view.question3 = submit.question3;
@@ -90,6 +118,64 @@ export default component$(() => {
                 );
               })}
             </div>
+            {status.value == "FIRST" &&
+              ["SUBMIT", "FIRST", "FIRSTREJECT"].includes(view.status) && (
+                <div class={styles.buttons}>
+                  <div
+                    class={[styles.button, styles.true]}
+                    onClick$={async () => {
+                      first.submit({
+                        access: token.value.access,
+                        submit: view.submit,
+                        pass: true,
+                      });
+                    }}
+                  >
+                    <p>합격하기</p>
+                  </div>
+                  <div
+                    class={[styles.button, styles.false]}
+                    onClick$={async () => {
+                      first.submit({
+                        access: token.value.access,
+                        submit: view.submit,
+                        pass: false,
+                      });
+                    }}
+                  >
+                    <p>반려하기</p>
+                  </div>
+                </div>
+              )}
+            {status.value == "SECOND" &&
+              ["FIRST", "SECOND", "SECONDREJECT"].includes(view.status) && (
+                <div class={styles.buttons}>
+                  <div
+                    class={[styles.button, styles.true]}
+                    onClick$={async () => {
+                      second.submit({
+                        access: token.value.access,
+                        submit: view.submit,
+                        pass: true,
+                      });
+                    }}
+                  >
+                    <p>최종 합격</p>
+                  </div>
+                  <div
+                    class={[styles.button, styles.false]}
+                    onClick$={async () => {
+                      second.submit({
+                        access: token.value.access,
+                        submit: view.submit,
+                        pass: false,
+                      });
+                    }}
+                  >
+                    <p>반려하기</p>
+                  </div>
+                </div>
+              )}
           </div>
         )}
       </div>
