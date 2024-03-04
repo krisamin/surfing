@@ -57,7 +57,7 @@ export default component$(() => {
     <div id="container">
       <div id="header">
         <div id="left">
-          <p>신청 관리</p>
+          <p>지원 관리</p>
           <p>내가 동장인 동아리를 관리할 수 있습니다.</p>
         </div>
         <div id="right">

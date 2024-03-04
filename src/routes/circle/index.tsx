@@ -57,6 +57,10 @@ export default component$(() => {
         <div class={styles.my}>
           <div class={styles.header}>
             <p class={styles.title}>내 지원 현황</p>
+            <div class={styles.warning}>
+              <div class={styles.icon} />
+              <p>지원한 후에는 취소할 수 없어요</p>
+            </div>
           </div>
           <div class={styles.list}>
             {[0, 1, 2].map((index) => {
@@ -65,10 +69,17 @@ export default component$(() => {
                 return (
                   <div
                     key={index}
-                    class={[styles.item, submit.status === "SECOND" && styles.pointer]}
+                    class={[
+                      styles.item,
+                      submit.status === "SECOND" && styles.pointer,
+                    ]}
                     onClick$={async () => {
                       if (submit.status === "SECOND") {
-                        if (confirm(`${submit.circle.name} 동아리로 최종 선택을 하시겠습니까?`)) {
+                        if (
+                          confirm(
+                            `${submit.circle.name} 동아리로 최종 선택을 하시겠습니까?\n선택한 후에는 변경이 불가능합니다.`
+                          )
+                        ) {
                           const { value } = await final.submit({
                             access: token.value.access,
                             submit: submit._id,

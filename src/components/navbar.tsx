@@ -36,7 +36,7 @@ export const Navbar = component$(() => {
               ]}
               href="/admin"
             >
-              <p>신청 관리</p>
+              <p>지원 관리</p>
             </Link>
           )}
           {token.value ? (
