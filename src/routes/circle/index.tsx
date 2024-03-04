@@ -107,7 +107,12 @@ export default component$(() => {
                     />
                     <div class={styles.info}>
                       <p class={styles.name}>{submit.circle.name}</p>
-                      <p class={styles.status}>
+                      <p
+                        class={[
+                          styles.status,
+                          styles[submit.status.toLowerCase()],
+                        ]}
+                      >
                         {submitStatusString[submit.status]}
                       </p>
                     </div>

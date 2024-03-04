@@ -87,6 +87,26 @@
           font-size: 24px;
           font-weight: 500;
           color: $grade-5;
+
+          &.first {
+            color: $grade-6;
+          }
+          &.second {
+            color: $grade-6;
+            font-weight: 700;
+          }
+
+          &.firstreject {
+            color: $grade-4;
+          }
+          &.secondreject {
+            color: $grade-4;
+          }
+
+          &.final {
+            color: $grade-8;
+            font-weight: 700;
+          }
         }
       }
     }

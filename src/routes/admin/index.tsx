@@ -98,7 +98,9 @@ export default component$(() => {
                 {submit.user.class}
                 {String(submit.user.number).padStart(2, "0")} {submit.user.name}
               </p>
-              <p>{submitStatusString[submit.status]}</p>
+              <p class={styles[submit.status.toLowerCase()]}>
+                {submitStatusString[submit.status]}
+              </p>
             </div>
           ))}
         </div>
