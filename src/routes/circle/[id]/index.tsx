@@ -252,7 +252,7 @@ export default component$(() => {
               </div>
             </div>
           )}
-          {circle.value.award && circle.value.video && (
+          {(circle.value.award || circle.value.video) && (
             <div class={styles.column}>
               {circle.value.video && (
                 <div class={styles.video}>
