@@ -11,6 +11,7 @@ export interface Circle {
   instagram: string;
   website: string;
   image: string[];
+  rand: number;
 }
 
 export interface User {
